@@ -1,0 +1,19 @@
+body{
+	text-align:center;
+}
+
+#regForm{
+	text-align:left;
+	display:inline-block;
+	margin-top:10%;
+}
+.regLabel{
+display:inline-block;
+width:7cm;
+padding:0.3cm;
+}
+.regField{
+display:inline-block;
+width:9cm;
+padding:0.3cm;
+}

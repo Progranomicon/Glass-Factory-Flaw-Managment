@@ -1,0 +1,26 @@
+.repTable{
+	/*border:1px solid black;*/
+	text-align:center;
+    table-layout:fixed;
+	width:100%;
+}
+.repTable th {
+	text-align:center;
+    white-space:nowrap;
+	-moz-transform: rotate(-90deg);
+	transform: rotate(-90deg);
+}
+.repTable th  p{
+	margin:0 -100%;
+    display:inline-block;
+}
+.repTable th  p:before{
+	content:'';
+    width:0;
+    padding-top:110%;
+    display:inline-block;
+    vertical-align:middle;
+}
+.b{
+	font-weight:700;
+}

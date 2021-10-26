@@ -1,0 +1,23 @@
+body{
+	font-family:'Helvetica';
+	/*background-image: url('../../background.jpg');*/
+}
+.usable:hover{
+	background-color: #39f;
+	cursor:pointer;
+}
+#header div{
+	margin-right:20px;
+}
+.halfScreenGist{
+	display:inline-block;
+	width:49%;
+}
+.listItem{
+	display:inline-block;
+	width: 13cm;
+	text-align:left;
+}
+.statDiv span{
+	font-weight: 700;
+}

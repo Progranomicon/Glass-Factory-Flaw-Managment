@@ -1,0 +1,111 @@
+<html>
+    <head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+        <script>
+            var webSocket ;
+			var lastRecievedData;
+			function newWebSocket(){
+				webSocket = new WebSocket('ws://' + document.getElementById('path').value + ':8088');
+				webSocket.onopen = function(event) {
+					console.log('opened');
+					allo();
+				};
+
+				webSocket.onmessage = function(event) {
+					console.log('message: ' + event.data);
+					lastRecievedData = JSON.parse(event.data);
+					renderInterface();
+				};
+				webSocket.onclose = function(event) { 
+					alert('onclose');
+				};
+			}
+            
+			function send (){
+				webSocket.send(document.getElementById('messageText').value);
+			}
+			function allo(){
+				setInterval(function(){webSocket.send("allo")
+										},60000);
+			}
+			function renderInterface(){
+				var tablo = document.getElementById('tablo');
+				
+				var middle = document.createElement('DIV');
+				middle.style.width = "19%";
+				middle.style.display = "inline-block";
+				middle.style.textAlign = "center";
+				middle.height = "40em";
+				
+				tablo.innerHTML = "";
+				if(lastRecievedData.common.isReverse){
+					left = lastRecievedData.team2;
+					right = lastRecievedData.team1;
+					colorLeft = "red";
+					colorRight = "blue";
+				}else{
+					left = lastRecievedData.team1;
+					right = lastRecievedData.team2;
+					colorLeft = "blue";
+					colorRight = "red";
+				}
+				tablo.appendChild(genPointDiv(left.points, colorLeft));
+				tablo.appendChild(middle);
+				
+				middle.appendChild(genPointsHistory());
+				middle.appendChild(genGamesDiv(left.games, colorLeft));
+				middle.appendChild(genGamesDiv(right.games, colorRight));
+				
+				tablo.appendChild(genPointDiv(right.points, colorRight));
+			}
+			function genPointsHistory(){
+				var pointsHistoryDiv = document.createElement('DIV');
+				pointsHistoryDiv.innerHTML = "";
+				pointsHistoryDiv.style.fontSize = "2em";
+				pointsHistoryDiv.innerHTML = "<b>Последние очки</b>";
+				var points = lastRecievedData.common.lastPoints;
+				var pDiv;
+				for(p in points){
+					pDiv = document.createElement('DIV');
+					pDiv.style.fontSize = "0.7em";
+					pDiv.innerHTML = '<div style="display:inline-block;width:9%;color:grey">' + points[p].n + '</div> <div style="display:inline-block;width:15%">' + points[p].time + '</div> <div style="display:inline-block;width:35%">' + points[p].player +'</div> <div style="display:inline-block;width:35%">' + points[p].action + '</div>';
+					pointsHistoryDiv.appendChild(pDiv); 
+				}
+				return pointsHistoryDiv;
+				
+			}
+			function genPointDiv(text, color){
+				var pointsDiv = document.createElement('DIV');
+				pointsDiv.style.width = "40%";
+				pointsDiv.style.textAlign = "center";
+				pointsDiv.style.display = "inline-block";
+				pointsDiv.style.fontSize = "40em";
+				pointsDiv.style.backgroundColor = color;
+				
+				pointsDiv.innerHTML = text;
+				return pointsDiv;
+			}
+			function genGamesDiv(text, color){
+				var gamesDiv = document.createElement('DIV');
+				gamesDiv.style.width = "50%";
+				gamesDiv.style.textAlign = "center";
+				gamesDiv.style.display = "inline-block";
+				gamesDiv.style.fontSize = "15em"; 
+				gamesDiv.style.backgroundColor = color;
+				
+				gamesDiv.innerHTML = text;
+				return gamesDiv;
+			}
+			function genSets(){
+			
+			}
+        </script>
+    </head>
+    <body>
+		Путь ws://<input type="text" id="path" value="192.168.113.180">:8088 <input type="button" value="соединить" onclick="newWebSocket()">
+		&nbsp &nbsp &nbsp &nbsp &nbsp  Сообщение: <input type="text" id="messageText"> <input type="button" value="отправить" onclick="send()">
+		<div id="tablo" style="font-family:'Helvetica'">
+			
+		</div>
+    </body>
+</html>

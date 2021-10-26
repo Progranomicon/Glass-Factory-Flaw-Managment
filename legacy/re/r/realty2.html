@@ -1,0 +1,205 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Недвижимость Мордовии</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf8">
+        <link rel="stylesheet" type="text/css" href="realty.css">
+        <style type="text/css">
+            .menu_a
+            {
+                text-decoration: none;
+                color: white;
+                font-size: 0.666em;
+            }
+            .menu_a:hover
+            {
+                color: white;
+                text-decoration: none;
+                /*font-size: 1em;*/
+                text-decoration: underline;
+            }
+            .menu_block
+            {
+                padding-left: 10px;
+                margin-bottom: 3px;
+                font-size: 0.75em;
+                color:  #c7cdde;
+                -moz-border-radius: 5px;
+                -webkit-border-radius: 5px;
+                border-radius:5px;/*для оперы*/
+            }
+        </style>
+    </head>
+    <body>
+        <div id="Header"><img src="logo_r.PNG" style=""></div>
+        <div id="Main">
+            <table width="100%">
+                <tr>
+                    <td id ="left_menu" width="18%" valign="top" style="font-size: 2em; color: darkblue;">
+                        Я ищу
+                        <div id="step1" class="menu_block" style="background:  dodgerblue;">
+                            Объект:<br>
+                            <span onclick="clickme(this);" class="menu_a" id="001">Квартира</span><br>
+                            <span onclick="clickme(this);" class="menu_a" id="002">Дом</span><br>
+                            <span onclick="clickme(this);" class="menu_a" id="003">Нежилая недвижимость</span><br>
+                            <span onclick="clickme(this);" class="menu_a" id="004">Земельный участок</span>
+                        </div>
+                        <div id="step1r" class="menu_block" style="background:  dodgerblue;"></div>
+                        <div id="step2" class="menu_block" style="background:  olivedrab;  display: none;">
+                            <span style="margin-left: -5px;">Район:</span><br>
+                            <span style="margin-left: -5px;">Саранск:</span><br>
+                            <span onclick="clickme(this);" class="menu_a" id="010">Центр</span><br>
+                            <span onclick="clickme(this);" class="menu_a" id="011">Светотехстрой</span><br>
+                            <span onclick="clickme(this);" class="menu_a" id="012">Химмаш</span><br>
+                            <span onclick="clickme(this);" class="menu_a" id="013">Николаевка/Ялга</span><br>
+                            <span onclick="clickme(this);" class="menu_a" id="014"> Югозапад</span><br>
+                            <span onclick="clickme(this);" class="menu_a" id="015">Пригород</span><br>
+                            <span onclick="clickme(this);" class="menu_a" id="016">Любой район Саранска</span><br>
+                            <span style="margin-left: -5px;">Республика:</span><br>
+                            <span onclick="clickme(this);" class="menu_a" id="031">Краснослободский</span><br>
+                            <span onclick="clickme(this);" class="menu_a" id="032">Рузаевский</span><br>
+                            <span onclick="clickme(this);" class="menu_a" id="033">Ковылкийский</span><br>
+                            <span onclick="clickme(this);" class="menu_a" id="034">Старошайговский</span><br>
+                            <span onclick="clickme(this);" class="menu_a" id="035">Инсарский</span><br>
+                            <span onclick="clickme(this);" class="menu_a" id="036">Ичалковский</span><br>
+                            <span onclick="clickme(this);" class="menu_a" id="037">И т. д. все остальные</span>
+                        </div>
+                        <div id="step2r" class="menu_block" style="background:  olivedrab;"></div>
+                        <div id="step3" class="menu_block" style="background: tomato;  display: none;">
+                            Цель:<br>
+                            <span onclick="clickme(this);" class="menu_a" id="101">Купить</span><br>
+                            <span onclick="clickme(this);" class="menu_a" id="102">Снять посуточно</span><br>
+                            <span onclick="clickme(this);" class="menu_a" id="103">Снять долгострочно</span><br> 
+                        </div>
+                        <div id="step3r" class="menu_block" style="background:  tomato;"></div>
+                        <div id="get_results" style="font-size: 0.7em;  display: none;">
+                            <a href="" >Посмотреть результаты ></a>
+                        </div>
+                        
+                    </td>
+                    <td width="2%"></td>
+                    <!--<td style="font-size: 1.5em; color: darkblue;">Я хочу: <div style="border: #000 solid 1px; display:  inline;">снять</div> <span style="color: lightsteelblue;">купить</span> квартиру <span style="color: lightsteelblue;">на химмаше </span><div style="border: #000 solid 1px; display:  inline;">в центре</div> <span style="color: lightsteelblue;">на юго-западе на светотехстрое</span></td>-->
+                    <td width="53%" valign="top" style="font-size: 1.5em; color: darkblue;">
+                        <img src="map.PNG" style="width: 100%; padding-top: 20px; ">Рекомендуем:<br>
+                        <table  width="100%">
+                            <tr>
+                                <td width="50%" ><a href="2.php">Квартира 1-комн.</a>
+                                    <div class="Recomend">
+                                        <img src="flat.JPEG" style="float: left; margin-right: 5px;">
+                                        <span style="color:#40454b">Площадь:</span><span style="color:midnightblue"> 50 м<sup>2</sup></span><br>
+                                        <span style="color:#40454b">Этаж:</span><span style="color:midnightblue"> 2 из 5</span><br>
+                                        <span style="color:#40454b">Район:</span><span style="color:midnightblue"> Химмаш</span><br>
+                                        <span style="color:#40454b">Цена:</span><span style="color:midnightblue"> 1 500 000 Р.</span>
+                                    </div>
+                                </td>
+                                <td width="50%" ><a href="2.php">Коммерческая недвижимость</a>
+                                    <div class="Recomend">
+                                        <img src="house.JPEG" style=" float: left; margin-right: 5px;">
+                                        <span style="color:#40454b">Площадь:</span><span style="color:midnightblue"> 520 м<sup>2</sup></span><br>
+                                        <span style="color:#40454b">Район:</span><span style="color:midnightblue"> Химмаш</span><br>
+                                        <span style="color:#40454b">Цена:</span><span style="color:midnightblue"> 8 880 000 Р.</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td width="50%" ><a href="2.php">Дом 120 м<sup>2</sup></a>
+                                    <div class="Recomend">
+                                        <img src="house.JPEG" style=" float: left; margin-right: 5px;">
+                                        <span style="color:#40454b">Площадь участка:</span><span style="color:midnightblue"> 15 сот.</span><br>
+                                        <span style="color:#40454b">Проведено:</span><span style="color:midnightblue"> газ, вода, телефон</span><br>
+                                        <span style="color:#40454b">Район:</span><span style="color:midnightblue"> Юго-Запад</span><br>
+                                        <span style="color:#40454b">Цена:</span><span style="color:midnightblue"> 4 120 000 Р.</span>
+                                    </div>
+                                </td>
+                                <td width="50%" ><a href="2.php">Квартира 3-комн.</a>
+                                    <div class="Recomend">
+                                        <img src="flat.JPEG" style=" float: left; margin-right: 5px;">
+                                        <span style="color:#40454b">Площадь:</span><span style="color:midnightblue"> 90 м<sup>2</sup></span><br>
+                                        <span style="color:#40454b">Этаж:</span><span style="color:midnightblue"> 9 из 16</span><br>
+                                        <span style="color:#40454b">Район:</span><span style="color:midnightblue"> Центр</span><br>
+                                        <span style="color:#40454b">Цена:</span><span style="color:midnightblue"> 3 120 000 Р.</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td width="2%"></td>
+                    <td width="25%" valign="top"><span style="font-size: 1.5em; color: darkblue;">Новости</span>
+                        <div class="news">
+                            <span class="news_header">Зоголовок</span><br>
+                                   Общество с ограниченной ответственностью наряду с иными видами хозяйственных обществ, а также хозяйственных товариществ, производственных кооперативов, государственных и муниципальных унитарных предприятий является коммерческой организацией, то есть организацией, преследующей извлечение прибыли в качестве основной цели сво<br>
+                            <span class="news_date">22.22.1922
+                        </div>
+                        <div class="news">
+                            <span class="news_header">Новость недвижимости длинный заголовок</span><br>
+                                    ри этом общество с ограниченной ответственностью характеризуется тем, что текущее (оперативное) управление в обществе (в отличие от товариществ) передается исполнительному органу, который назначается учредителями либо из своего числа, либо из числа иных лиц. За участниками общества сохраняются права по стратегическому<br>
+                            <span class="news_date">22.22.1922
+                        </div>
+                        <div class="news">
+                            <span class="news_header">Короткый заголовок</span><br>
+                                   Закон об обществе с ограниченной ответственностью (GmbHG) в Германии вступил в силу ещё в 1892 году. Некоторые облегчения были введены в 2008 году.Минимальный уставный капитал для GmbH должен составлять не менее 25 тыс. евро [1] (в Австрии 35 000 евро).<br>
+                            <span class="news_date">22.22.1922
+                        </div>
+                        <div class="news">
+                            <span class="news_header">Зоголовок 4</span><br>
+                                    В ООО данный орган управления ни при каких обстоятельствах не является обязательным. Осуществляет руководство текущей деятельностью ООО совместно с единоличным исполнительным органом. В связи с практически полным отсутствием в законе <br>
+                            <span class="news_date">22.22.1922
+                        </div></td>
+                </tr>
+            </table></div>
+        <div id="Footer">По вопросам работы сайт обращаться на Qdashkin@pochta.ru<br>
+        ООО "Недвижимость Мордовии". © 2012.
+        </div>
+        <script type="text/javascript">
+            var prev_style;
+            function clickme(elem){
+                if (elem.id*1<10){
+                    document.getElementById('step1').style.display ='none';
+                    document.getElementById('step1r').innerHTML='Объект: <span class="menu_a" onclick="change_option(1)">'+elem.innerHTML+'</span>';
+                    document.getElementById('step2').style.display ='block';
+                }
+                if ((elem.id*1>10) && (elem.id*1<100)){
+                    document.getElementById('step2').style.display ='none';
+                    document.getElementById('step2r').innerHTML='Район: <span class="menu_a" onclick="change_option(2)">'+elem.innerHTML+'</span>';
+                    document.getElementById('step3').style.display ='block';
+                }
+                if (elem.id*1>100){
+                    document.getElementById('step3').style.display ='none';
+                    document.getElementById('step3r').innerHTML='Цель: <span class="menu_a" onclick="change_option(3)">'+elem.innerHTML+'</span>';
+                    document.getElementById('get_results').style.display ='block';
+                }
+            }
+            function change_option(a){
+              if (a==1)
+              {
+                   document.getElementById('step1').style.display ='block';
+                   document.getElementById('step2').style.display ='none';
+                   document.getElementById('step3').style.display ='none';
+                   document.getElementById('step1r').innerHTML='';
+                   document.getElementById('step2r').innerHTML='';
+                   document.getElementById('step3r').innerHTML='';
+                   document.getElementById('get_results').style.display ='none';
+              }
+              if (a==2)
+              {
+                   document.getElementById('step2').style.display ='block';
+                   document.getElementById('step3').style.display ='none';
+                   document.getElementById('step2r').innerHTML='';
+                   document.getElementById('step3r').innerHTML='';
+                   document.getElementById('get_results').style.display ='none';
+              }
+              if (a==3)
+              {
+                   document.getElementById('step3').style.display ='block';
+                   document.getElementById('step3r').innerHTML='';
+                   document.getElementById('get_results').style.display ='none';
+              }
+            }
+        </script>      
+    </body>
+</html>

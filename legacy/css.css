@@ -1,0 +1,18 @@
+body{
+	text-align:Center;
+	font-family:Helvetica;
+}
+.menu{
+	display:inline-block;
+	text-align:left;
+}
+li{
+	list-style-type:none;
+}
+a{
+	color:#336699;
+	text-decoration:none;
+}
+a:hover{
+	border:1px solid grey;
+}

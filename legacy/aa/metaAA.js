@@ -1,0 +1,9 @@
+var objType={}; 
+	objType[1]={"caption":"Квартира"};
+	objType[2]={"caption":"Дом"};
+	objType[3]={"caption":"Участок"};
+	objType[4]={"caption":"Нежилая недв."};
+var area={}; 
+	area[1]={"caption":"Проллетарский"};
+	area[2]={"caption":"Лененский"};
+	area[3]={"caption":"Октябрьский"};

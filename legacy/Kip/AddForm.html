@@ -1,0 +1,54 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+        <link rel="stylesheet" href="Style.css" type="text/css" >
+    </head>
+    <body>
+        <span style="font-size: 15px; color: #009933;font-weight: bold">Записано</span>
+        <br>
+        <FORM action="AddEvent.php" method=GET>
+            <Table id="AddForm">
+                <tr>
+                    <td>Дата события</td>
+                    <td><input id="EventDate" type="text" name="DateFrom" value=""></td>
+                    <td>Время события</td>
+                    <td><input id="EventTime" type="text" value=""></td>
+                 </tr>
+                 <tr>
+                    <td>Событие</td>
+                    <td><input id="EventType" type="text" value=""></td>
+                    <td></td>
+                    <td></td>
+                 </tr>
+                 <tr>
+                    <td>Оборудование</td>
+                    <td><input id="Equipment" type="text" value=""></td>
+                    <td>№</td>
+                    <td><input id="NEq" type="text" value=""></td>
+                 </tr>
+                 <tr>
+                    <td>Смена</td>
+                    <td><input id="Shift" type="text" value=""></td>
+                    <td></td>
+                    <td></td>
+                 </tr>
+                 <tr>
+                    <td>Дата ремонта</td>
+                    <td><input id="RestoreDate" type="text" name="DateFrom" value=""></td>
+                    <td>Время ремонта</td>
+                    <td><input id="RestoreTime" type="text" value=""></td>
+                 </tr>
+                  <tr>
+                      <td >Коментарий</td>
+                      <td colspan="3"><textarea placeholder="Комментируй же!" cols="58" rows="10" name="Comment"></textarea></td>
+                  </tr>
+            </table>
+        </form>
+    </body>
+</html>

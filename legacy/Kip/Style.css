@@ -1,0 +1,83 @@
+
+body, html {
+	margin:0px; /*Это хорошая практика обнулять поля и отсупы, т.к. различные браузеры их по разному воспринимают. */
+	padding:0px;
+	text-align:left; /*Выравниваем макет по центру в старых версиях браузеров */
+	/*background-color:#63b9da;*/
+}
+h1{
+	padding-left:10px;
+}
+#NewPage {page-break-after: always}
+#Header {  
+	height:70px;
+	background-color:#003366;
+        width: 150%;
+	padding:10px;
+	font-family:arial;
+	font-size:28px;
+	font-weight:bold;
+	vertical-align:middle;
+	padding-top:30px;
+}
+#Menu {
+	font-family:arial;
+	background-color:#ffCC99;
+	padding-left:10px;
+	padding-top:5px;
+	padding-bottom:5px;
+        width: 150%;
+        font-size: 0.75em;
+}
+#MainBlock{
+	font-family:verdana, sans;
+	font-size:14px;
+	padding:10px;
+}
+
+#Footer {
+	background-color:#003366;
+	padding:10px;
+        color: #ffffff;
+        width: 150%;
+}
+#KipJournal{
+    border-width:  1px;
+    border-style: solid;
+    border-collapse:sCollaps;
+}
+#KipJournal td{
+	border:1px;
+	border-style:solid;
+        border-collapse:sCollaps;
+}
+#KipJournal th{
+	border:1px;
+	border-style:solid;
+	padding:3px;
+	text-align: -moz-center;
+	margin:7px;
+        border-collapse:sCollaps;
+}
+
+#Shapka{
+    display:block; 
+    /*float:right; */
+    /*border: 1px solid black; */
+    text-align:right;
+}
+ #PDFReport {
+     border-collapse: collapse;
+     border: 1px solid #000000;
+     margin-left: 10px; 
+     margin-top: 10px; 
+     font-family: tahoma; 
+     /*font-size: 14px;*/
+}
+#PDFReport td {
+    border: 1px solid #000000;
+    padding: 5px;
+}
+#spc {
+    
+}

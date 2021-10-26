@@ -1,0 +1,74 @@
+#main_table{
+	display:inline-block;
+	width:90%;
+}
+.statusDiv{
+	display:inline-block;
+	width:90%;
+	text-align: left;
+	margin-bottom:0em;
+	padding-top:10px;
+	border:1px solid white;
+}
+#main_table td{
+	text-align:center;
+}
+.nd{
+	color:grey;
+	background-color:white;
+}
+.norma{
+	color:white;
+	background-color:green;
+}
+.red{
+	background-color: red;
+	color:white;
+}
+.yellow{
+	background-color: yellow;
+}
+.orange{
+	background-color: orange;
+}
+.grey{
+	background-color: grey;
+}
+.light_green{
+	background-color: #99cc99;
+}
+.brown{
+	background-color: #c93;
+}
+.hoverable:hover{
+	background-color:black;
+	color:red;
+	cursor:pointer;
+	font-size:1.2em;
+	/*
+	background-image: url(del.jpg);*/
+}
+.floatShare{
+	float:right;
+	padding:3px;
+	background-color: black;
+	color:white;
+	border-radius: 5px;
+}
+.def_div{
+	margin:3px;
+	text-align:left;
+	font-size:1.2em;
+	border-bottom:1px solid black;
+}
+.setDefectDiv:hover{
+	cursor:pointer;
+	background-color:#9cf;
+	color:black;
+}
+.setDefectDiv{
+	border:none;
+}
+.smallFont{
+	font-size:12px;
+}

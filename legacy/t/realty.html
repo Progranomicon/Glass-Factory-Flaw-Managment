@@ -1,0 +1,81 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Недвижимость Мордовии</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" type="text/css" href="realty.css">
+        <style type="text/css">
+            .not_selected
+            {
+                color: lightsteelblue; 
+                font-size: 0.7em;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="Header"><img src="logo_r.PNG" style=""></div>
+        <div id="Main">
+            <table width="100%">
+                <tr>
+                    <td width="25%" valign="top"><span style="font-size: 1.5em; color: darkblue;">Новости</span>
+                        <div class="news">
+                            <span class="news_header">Зоголовок</span><br>
+                                   Общество с ограниченной ответственностью наряду с иными видами хозяйственных обществ, а также хозяйственных товариществ, производственных кооперативов, государственных и муниципальных унитарных предприятий является коммерческой организацией, то есть организацией, преследующей извлечение прибыли в качестве основной цели сво<br>
+                            <span class="news_date">22.22.1922
+                        </div>
+                        <div class="news">
+                            <span class="news_header">Новость недвижимости длинный заголовок</span><br>
+                                    ри этом общество с ограниченной ответственностью характеризуется тем, что текущее (оперативное) управление в обществе (в отличие от товариществ) передается исполнительному органу, который назначается учредителями либо из своего числа, либо из числа иных лиц. За участниками общества сохраняются права по стратегическому<br>
+                            <span class="news_date">22.22.1922
+                        </div>
+                        <div class="news">
+                            <span class="news_header">Короткый заголовок</span><br>
+                                   Закон об обществе с ограниченной ответственностью (GmbHG) в Германии вступил в силу ещё в 1892 году. Некоторые облегчения были введены в 2008 году.Минимальный уставный капитал для GmbH должен составлять не менее 25 тыс. евро [1] (в Австрии 35 000 евро).<br>
+                            <span class="news_date">22.22.1922
+                        </div>
+                        <div class="news">
+                            <span class="news_header">Зоголовок 4</span><br>
+                                    В ООО данный орган управления ни при каких обстоятельствах не является обязательным. Осуществляет руководство текущей деятельностью ООО совместно с единоличным исполнительным органом. В связи с практически полным отсутствием в законе <br>
+                            <span class="news_date">22.22.1922
+                        </div></td>
+                    <td width="2%"></td>
+                    <!--<td style="font-size: 1.5em; color: darkblue;">Я хочу: <div style="border: #000 solid 1px; display:  inline;">снять</div> <span style="color: lightsteelblue;">купить</span> квартиру <span style="color: lightsteelblue;">на химмаше </span><div style="border: #000 solid 1px; display:  inline;">в центре</div> <span style="color: lightsteelblue;">на юго-западе на светотехстрое</span></td>-->
+                    <td valign="top" style="font-size: 1.5em; color: darkblue;"><div id="select_region">Я хочу       
+                                                                                             <span id="buy" class="not_selected" OnMouseOver="javascript:highlight(this);" onmouseout="javascript:this.style='text-decoration: none;'" onclick="javascript:clickme(this);"> снять</span>
+                                                                                             <span id="rent" class="" OnMouseOver="javascript:highlight(this);" onmouseout="javascript:this.style='text-decoration: none;'" onclick="javascript:clickme(this);"> купить</span> квартиру 
+                                                                                             <span id="himmach" class="not_selected" OnMouseOver="javascript:highlight(this);" onmouseout="javascript:this.style='text-decoration: none;'" onclick="javascript:clickme(this);"> на химмаше </span>
+                                                                                             <span id="center" class="" OnMouseOver="javascript:highlight(this);" onmouseout="javascript:this.style='text-decoration: none;'" onclick="javascript:clickme(this);"> в центре</span> 
+                                                                                             <span id="south-west" class="not_selected" OnMouseOver="javascript:highlight(this);" onmouseout="javascript:this.style='text-decoration: none;'" onclick="javascript:clickme(this);"> на юго-западе</span>
+                                                                                             <span id="svet" class="not_selected" OnMouseOver="javascript:highlight(this);" onmouseout="javascript:this.style='text-decoration: none;'" onclick="javascript:clickme(this);"> на светотехстрое</span>
+                                                                                             <span id="downtown" class="not_selected" OnMouseOver="javascript:highlight(this);" onmouseout="javascript:this.style='text-decoration: none;'" onclick="javascript:clickme(this);"> на низах</span>
+                                                                                             <span id="luhovka" class="not_selected" OnMouseOver="javascript:highlight(this);" onmouseout="javascript:this.style='text-decoration: none;'" onclick="javascript:clickme(this);"> в луховке</span>
+                                                                                             <span id="yalga" class="not_selected" OnMouseOver="javascript:highlight(this);" onmouseout="javascript:this.style='text-decoration: none;'" onclick="javascript:clickme(this);"> в ялге/николаевке</span>
+                                                                                             </div>
+                        <img src="map.PNG" style="width: 100%; padding-top: 20px; ">
+                    </td>
+                </tr>
+            </table></div>
+        <div id="Footer">По вопросам работы сайт обращаться на Qdashkin@pochta.ru<br>
+        ООО "Недвижимость Мордовии". © 2012.
+        </div>
+        <script type="text/javascript">
+            function clickme(elem){
+                if (elem.className=='not_selected'){
+                    elem.className='';
+                }
+                else{
+                    elem.className='not_selected';
+                };
+                return false;
+            }
+            function highlight(elem){
+                elem.style='text-decoration: underline;  font-size: 1em;'
+                return false;
+            }
+        </script>      
+    </body>
+</html>

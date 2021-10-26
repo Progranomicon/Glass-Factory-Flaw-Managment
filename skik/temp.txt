@@ -1,0 +1,16 @@
+localhost/skik/wrapper.php?flaw_type=123&flaw_part=1.4&comment=&parameter_value=100&moldsList=12,13,14&task=addFlaw
+
+
+SELECT  t1.id AS move_id,
+	t1.date_start AS mold_date_start, 
+	t1.mold, 
+	t1.position,
+	t1.section,
+	t2.id, 
+	t2.date_start, 
+	t2.flaw_part, 
+	t2.flaw_type, 
+	t2.parameter_value 
+FROM molds AS t1 LEFT JOIN 
+     flaw AS t2 
+ON t1.id=t2.move_id WHERE t1.POL_id='10' ORDER BY t1.id, t2.id;

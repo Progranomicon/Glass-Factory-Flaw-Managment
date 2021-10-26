@@ -1,0 +1,20 @@
+body{
+	font-family:Helvetica;
+}
+.used{
+	background-color:#cfc;
+}
+.used:hover{
+	background-color:#9cf;
+	cursor:pointer;
+}
+.usable{
+	
+}
+.usable:hover{
+	background: #9cf;
+	cursor:pointer;
+}
+.paddingLeft20Pr{
+	padding-left:20%;
+}

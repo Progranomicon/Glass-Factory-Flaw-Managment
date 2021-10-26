@@ -1,0 +1,138 @@
+#LabelDiv{
+			width:18cm; 
+			height:12cm;
+		}
+		.LabelDivImg{
+			position:relative;
+			z-index:5;
+			visibility:visible;
+			float:left;
+			width:0px;
+		}
+		.LabelVarImg{
+			position:relative;
+			z-index:5;
+			visibility:visible;
+			float:left;
+			left:15.4cm;
+			width:0px;
+		}
+		.LabelVarImg img{
+			padding:5px;
+		}
+#LabelTextDiv{
+			width:18cm; 
+			height:12cm; 
+			border:1px solid black; 
+			text-align:center;
+			font-family: Verdana;
+			font-size:12px;
+			position:relative;
+			height:100%;
+			width:100%;
+			z-index:4;
+		}
+#ToolsDiv{
+			position:absolute;
+			left:18.5cm;
+			top:0.2cm;
+			border:1px dashed gray;
+			background-color: #ddf;
+			padding:5px;
+			text-indent:0px;
+			z-index:24;
+		}
+.rowDiv:hover{
+			background-color:#faa;
+		}
+#curLine{
+			border:1px dashed blue;
+		}
+		.imagesToPaste{
+			position:absolute;
+			top:13cm;
+		}
+		.imag:hover{
+			background-color:#4b4;
+			border:2px solid #4b4;
+		}
+		.imagAdded:hover{
+			border:2px solid #b44;
+		}
+		.goBack{
+			top:10px;
+			left:800px;
+			position:fixed;
+			border:1px solid #999;
+			display:none;
+			z-index:9;
+			color:#aaa;
+			font-size:26px;
+		}
+		.goBack:hover{
+			border:2px solid #4d4;
+			color:#000;
+		}
+#lineSelector{
+
+}	
+.unsel {
+	background-color:lightblue;
+	font-size:2em;
+	margin:2px;
+	float:left;
+	border-radius:4px;
+ 
+}
+.unsel a{
+	font-family:helvetica, verdana, arial;	
+	color:white;
+	text-decoration:none;	
+}
+.sel{
+	font-family:verdana, arial;
+	background-color:darkblue;
+	color:white;
+	font-size:2em;
+	-moz-border-radius-top: 5px;
+	float:left;
+	border-radius:4px;
+	-webkit-border-radius:4px;
+	-moz-border-radius:4px; 
+}
+.unsel:hover{
+	border: 1px solid black;
+}
+#elFormatos a:hover {
+	border:1px solid green;
+	text-decoration:none;
+}
+#elFormatos a {
+	text-decoration:none;
+	
+}
+#elFormatos {
+	height:500px;
+	overflow:auto;
+	border:1px solid blue;
+	padding:3px;
+	margin-top: 3px;
+	width:1200px;
+	height:1000px;
+}
+#modeIndicator{
+	text-decoration:underline;
+	font-size:1.5em;
+}
+#Help{
+	position:absolute;
+	top:50px;
+	left:50px;
+	display:none;
+	z-index:250;
+	width:450px;
+	padding:10px;
+	background-color:#ccffcc;
+	border: 2px solid black;
+	box-shadow:5px 5px 10px 3px #999;
+}

@@ -1,0 +1,53 @@
+/*div{	border:1px grey dotted;}*/
+
+#table{
+	text-align:center;
+}
+.tableRow{
+	width:95%;
+	display:inline-block;
+	border:1px solid black;
+	/*border-bottom:1px solid black;
+	border-top:1px solid black;*/
+}
+.positionDiv{
+	float:left;
+	width:48%;
+}
+.lineNumDiv{
+	float:left;
+	width: 2%;
+}
+.moldCell{
+	/*width:20%;*/
+	float:left;
+	border-left:1px solid black;
+}
+.flawCell{
+	width:78%;
+	float:left;
+}
+.moldSubCell{
+	width:0.8cm;
+	min-width:30px;
+	padding:3px;
+	float:left;
+}
+
+.mInspBlock{
+	width:49%;
+	float:left;
+	border:1px solid black;
+	margin:5px;
+}
+.mInspBlockRow{
+	width:99%;
+	float:left;
+}
+.legend{
+	padding:5px;
+	margin:5px;
+	float:left;
+	font-size:0.7em;
+	border:1px solid black;
+}

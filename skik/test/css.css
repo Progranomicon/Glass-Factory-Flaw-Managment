@@ -1,0 +1,10 @@
+#menu{
+	float:left;
+	width: 200px;
+	border:1px dashed black;
+	padding:5px;
+}
+#workField{
+	float:left;
+	display:inline-block;
+}

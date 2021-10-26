@@ -1,0 +1,14 @@
+{
+	"production_Name":"aasdasd",
+	"production_id":"123123",
+	"molds":[
+				"123":{
+					"mold":"12",
+					"date_start":"2015-09-22 10:00",
+					"date_end":"2015-09-22 12:00",
+					"flaw":[]
+				},
+				"124":{},
+				"125":{}
+			]
+}

@@ -1,0 +1,80 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Рынок недвижимости республики Мордовия</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf8">
+        <link rel="stylesheet" type="text/css" href="rn13.css">
+        <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+        
+        <style type="text/css">
+
+        </style>
+    </head>
+    <body>
+        <div>
+           <div style=" font-family: sans-serif, Helvetica; ">
+               <table width="100%" cellspacing="0" style="">
+                   <tr>
+                       <td style="background-color: red; color: white; padding: 0.7em;">
+                           Новость:
+                       </td>
+                       <td style="background-color: #555; color: lightsteelblue; padding: 0.7em;">
+                           <a href="">Хуё-моё. Интересная новость про недвижимость. Интересная новость про недвижимость  Мордовии...</a>
+                       </td>
+                       <td style="background-color: #555; color: lightsteelblue; padding: 0.7em;border-color: #555; border-left-color: black; border-width: 1px; border-style: solid;border-bottom-color: #555;">
+                           <a href="">Еще новости</a>
+                       </td>
+                   </tr>
+               </table>
+           </div>
+            <img src="logo_r.PNG" style=""/><img src="znachki.PNG" style=""/>
+            <div style="text-align: center;">
+                <div id="ymap" style="width: 700px; height: 400px; margin: 0 auto;">
+                </div>
+            </div>
+            <div id="Footer">По вопросам работы сайт обращаться на Qdashkin@pochta.ru . 
+                ООО "Рынок недвижимости республики Мордовия". © 2012.
+            </div>
+        </div>
+        <script type="text/javascript">
+        ymaps.ready(init);
+
+        function init () {
+            var myMap = new ymaps.Map('ymap', {
+            center: [54.1831836,45.17648 ],
+            zoom: 11,
+             behaviors: ['ruler', 'scrollZoom','drag']
+          });
+          //myMap.behaviors.enable();
+              myPlacemark11 = new ymaps.Placemark([54.182103, 45.172705],{iconContent: "1-комн"
+                    },{preset:"twirl#redStretchyIcon"});
+             myMap.geoObjects.add(myPlacemark11);
+              myPlacemark12 = new ymaps.Placemark([54.193882, 45.233473],{iconContent: "2-комн"
+                    },{preset:"twirl#redStretchyIcon"});
+             myMap.geoObjects.add(myPlacemark12);
+              myPlacemark32 = new ymaps.Placemark([54.175658, 45.140604],{iconContent: "2-комн"
+                    },{preset:"twirl#redStretchyIcon"});
+             myMap.geoObjects.add(myPlacemark32);
+              myPlacemark123 = new ymaps.Placemark([54.171489, 45.140712],{iconContent: "2-комн"
+                    },{preset:"twirl#redStretchyIcon"});
+             myMap.geoObjects.add(myPlacemark123);
+              myPlacemark31 = new ymaps.Placemark([54.171428, 45.183228],{iconContent: "3-комн"
+                    },{preset:"twirl#redStretchyIcon"});
+             myMap.geoObjects.add(myPlacemark31);
+              myPlacemark = new ymaps.Placemark([54.174513, 45.151627],{iconContent: "1-комн"
+                    },{preset:"twirl#darkgreenStretchyIcon"});
+             myMap.geoObjects.add(myPlacemark);
+              myPlacemark2 = new ymaps.Placemark([54.218197, 45.116608],{iconContent: "1-комн"
+                    },{preset:"twirl#darkgreenStretchyIcon"});
+             myMap.geoObjects.add(myPlacemark2);
+              myPlacemark22 = new ymaps.Placemark([54.186936, 45.180945],{iconContent: "3-комн"
+                    },{preset:"twirl#darkgreenStretchyIcon"});
+             myMap.geoObjects.add(myPlacemark22);
+        }
+        </script>
+    </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+    </head>
+    <body>
+      <canvas height='30' width='600' id='example'>Обновите браузер</canvas>   
+        
+    <script>
+        var context = document.getElementById('example').getContext('2d');
+            var image = new Image();
+            var s1='x', s2='', req=35;
+            var y1=0,y2=30,x=30,c;            
+            context.font = "bold italic 30px monospace "
+
+            MyFunc();
+            
+            function MyFunc(){
+                
+                if (y1>=30)
+                {
+                    if (c==req) {
+                        x+=20;
+                        req+=1;
+                    }
+                    s2=s1;
+                    c=rnd(35,255)
+                    s1=String.fromCharCode(c);
+                    y1=0;
+                    y2=30;
+                }
+                    y1+=5;
+                    y2+=5;
+
+                context.clearRect(x, 0, x+20, 50)
+                context.fillText(s1, x, y1);
+                context.fillText(s2, x, y2);
+                context.fillStyle = "black";
+                //context.fillRect(0, 30, 600, 150);
+                setTimeout('MyFunc();', 10);
+                
+            }
+            
+            function rnd(min_random, max_random) {
+                 var range = max_random - min_random + 1;
+                 return Math.floor(Math.random()*range) + min_random;
+            }
+    </script>
+    </body>
+</html>

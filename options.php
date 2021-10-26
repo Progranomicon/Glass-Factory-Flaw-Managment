@@ -1,0 +1,4 @@
+<?php
+	$OPTIONS['GS1_FACTORY_CODE'] = "467008971";
+	
+?>
