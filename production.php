@@ -20,7 +20,7 @@
 	//Program
 	if(isset($_GET['task']))
 		if($_GET['task']=='getProduction'){
-			updateJSON();
+			//updateJSON();
 			answerBuilder('JSONCache/production.json', $isFileChanged, $isFileCopied);
 		}
 	function cacheProductionIntoJSON($path, $file){
