@@ -1,7 +1,7 @@
 ﻿<?php
 	date_default_timezone_set('Europe/Moscow');
-	include "conn.php";
-	include "PHPExcel/IOFactory.php";
+	require "../conn.php";
+	require "../PHPExcel/IOFactory.php";
 	$locale = 'ru_ru';
 	$validLocale = PHPExcel_Settings::setLocale($locale);
 

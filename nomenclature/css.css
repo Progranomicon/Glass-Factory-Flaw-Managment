@@ -1,0 +1,113 @@
+.toolRow{
+	display:block;
+	width:105%;
+	cursor:pointer;
+}
+.toolRow:hover{
+	background-color:#46F;
+	color:white;
+}
+.toolRow DIV{
+	display:inline-block;
+	overflow:hidden;
+	border: 1px solid black;
+	margin-top:-1px;
+	margin-right:-1px;
+	padding:3px;
+	cursor:pointer;
+	font-family:sans-serif;
+}
+.toolId{
+	width:1cm;
+}
+.toolName{
+	width:7cm;
+}
+.mRange{
+	width:3cm;
+}
+.toolType{
+	width:3.5cm;
+}
+.accClass{
+	width:3cm;
+}
+.frValidation{
+	width:1.5cm;
+} 
+.lastValidation{
+	width:2.5cm;
+}
+.validationOrg{
+	width:4cm;
+}
+.sn{
+	width:4cm;
+}
+.labelForm{
+	display:inline-block;
+	width:10cm;
+	text-align:right;
+	margin-bottom:5px;
+}
+.formInput{
+	display:inline-block;
+	text-align:left;
+	margin-bottom:5px;
+	margin-left:5px;
+}
+.popupDateSel{
+	top:270px;
+	left:300px;
+	position:absolute;
+	border-radius:5px;
+	box-shadow: 7px 7px 5px rgba(0,0,0,0.6);
+	background-color:white;
+	border:1px solid gray;
+	padding:5px;
+	font-family: Verdana, Helvetica, sans-serif;
+	vertical-align:top;
+}
+.OverDate{
+	background-color:#ff7040;
+	width:-moz-fit-content;
+}
+.OkoloDate{
+	background-color:#ffD940;
+	width:-moz-fit-content;
+}
+.selsel{
+	display:inline-block;
+	padding:3px;
+	margin:3px;
+	border:1px dotted #bbb;
+	cursor:pointer;
+}
+.selsel:hover{
+
+	border:1px solid #000;
+	background-color:#bbb;
+}
+.rep td{
+	border:1px solid #000;
+	height:2.5em;
+	border-collapse:collapse;
+}
+.rep th{
+	border:1px solid #000;
+	height:2.5em;
+	border-collapse:collapse;
+}
+.rep{
+	border-collapse:collapse;
+}
+.titleItem{
+	background-color: #000;
+	/*font-size:1.3em;*/
+	border-radius:3px;
+	padding-left:3px;
+	padding-right:3px;
+	font-weight:bold;
+	font-family:helvetica;
+	cursor:pointer;
+}

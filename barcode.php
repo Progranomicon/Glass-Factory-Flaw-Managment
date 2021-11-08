@@ -8,7 +8,7 @@ function getvar($name){
     else return false;
 }
 
-if (get_magic_quotes_gpc()){
+if (false/*get_magic_quotes_gpc()*/){
     $code=stripslashes(getvar('code'));
 } else {
     $code=getvar('code');

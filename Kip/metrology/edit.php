@@ -11,6 +11,7 @@
 <?php
 	require "connect.php";
 	if (!isset($_POST['toolName']) & !isset($_GET['del'])){
+		if (!isset($_GET['id']))  $_GET['id'] =0;
 		$q="SELECT * from metrology where id='".$_GET['id']."'";
 		$r=mysql_query($q);
 		$row=mysql_fetch_assoc($r);
@@ -26,15 +27,15 @@
 ?>
 <form action="edit.php" METHOD="POST">
 <div>
-	<div class="labelForm">ID: </div><div class="formInput"><input type="hidden" name="id" value="<?php echo $row['id']; if( $_GET['id']==0) echo '0';?>"><?php echo $row['id'];if( $_GET['id']==0) echo 'Новый'; ?></div><br>
-	<div class="labelForm">Наименование:</div><div class="formInput"><input type="text" name="toolName"  value="<?php echo $row['toolName']; ?>"></div><br>
-	<div class="labelForm">Серийный номер:</div><div class="formInput"><input type="text" name="sn"  value="<?php echo $row['sn']; ?>"></div><br>
-	<div class="labelForm">Тип:</div><div class="formInput"><input type="text" name="toolType"  value="<?php echo $row['toolType']; ?>"></div><br>
-	<div class="labelForm">Класс точности:</div><div class="formInput"><input type="text" name="accClass"  value="<?php echo $row['accClass']; ?>"></div><br>
-	<div class="labelForm">Диапазон измерений:</div><div class="formInput"><input type="text" name="mRange" value="<?php echo $row['mRange']; ?>"></div><br>
-	<div class="labelForm">Межповерочный интервал:</div><div class="formInput"><input type="text" name="frValidation" value="<?php echo $row['frValidation']; ?>"></div><br>
-	<div class="labelForm">Последняя поверка:</div><div class="formInput"><input type="hidden" name="lastValidation" id="lastVld" value="<?php echo $row['lastValidation']; ?>"><span id="vldDate"></span></div><br>
-	<div class="labelForm">Место использования:</div><div class="formInput"><input type="text" name="validationOrg" value="<?php echo $row['validationOrg']; ?>"></div><br>
+	<div class="labelForm">ID: </div><div class="formInput"><input type="hidden" name="id" value="<?php if (isset($row['id'])) echo '0';?>"><?php if ((isset($_GET['id'])) and ($_GET['id']==0)) echo 'Новый'; ?></div><br>
+	<div class="labelForm">Наименование:</div><div class="formInput"><input type="text" name="toolName"  value="<?php if (isset($row['toolName']) ) echo $row['toolName']; ?>"></div><br>
+	<div class="labelForm">Серийный номер:</div><div class="formInput"><input type="text" name="sn"  value="<?php if (isset($row['sn']) ) echo $row['sn']; ?>"></div><br>
+	<div class="labelForm">Тип:</div><div class="formInput"><input type="text" name="toolType"  value="<?php if (isset($row['toolType']) ) echo $row['toolType']; ?>"></div><br>
+	<div class="labelForm">Класс точности:</div><div class="formInput"><input type="text" name="accClass"  value="<?php if (isset($row['accClass']) ) echo $row['accClass']; ?>"></div><br>
+	<div class="labelForm">Диапазон измерений:</div><div class="formInput"><input type="text" name="mRange" value="<?php if (isset($row['mRange']) ) echo $row['mRange']; ?>"></div><br>
+	<div class="labelForm">Межповерочный интервал:</div><div class="formInput"><input type="text" name="frValidation" value="<?php if (isset($row['frValidation']) ) echo $row['frValidation']; ?>"></div><br>
+	<div class="labelForm">Последняя поверка:</div><div class="formInput"><input type="hidden" name="lastValidation" id="lastVld" value="<?php if (isset($row['lastValidation']) ) echo $row['lastValidation']; ?>"><span id="vldDate"></span></div><br>
+	<div class="labelForm">Место использования:</div><div class="formInput"><input type="text" name="validationOrg" value="<?php if (isset($row['validationOrg']) ) echo $row['validationOrg']; ?>"></div><br>
 	<div class="labelForm"></div><input type="submit" value="Записать"><input type="button" value="Удалить" onclick="document.location.href='edit.php?del='+<?php  if( $_GET['id']==0){ echo '0" disabled'; } else echo $row['id'].'"';?>>
 </div>
 </form>

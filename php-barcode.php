@@ -173,6 +173,7 @@ function barcode_outimage($text, $bars, $scale = 1, $mode = "png",
     global $_SERVER;
     $chars=explode(" ", $text);
     reset($chars);
+	error_reporting(0);
     while (list($n, $v)=each($chars)){
 	if (trim($v)){
 	    $inf=explode(":", $v);
@@ -182,7 +183,7 @@ function barcode_outimage($text, $bars, $scale = 1, $mode = "png",
 	    $fontheight, $col_text, $font_loc, $inf[2]);
 	}
     }
-
+	error_reporting(1);
     /* output the image */
     $mode=strtolower($mode);
     if ($mode=='jpg' || $mode=='jpeg'){

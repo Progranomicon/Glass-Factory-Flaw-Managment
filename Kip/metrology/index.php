@@ -11,8 +11,10 @@
 	var tools =[];
 <?php
 	require "connect.php";
-	$q='SELECT * from metrology WHERE isDeleted!=1 ORDER BY validationOrg';
+	$q='SELECT * from steklo.metrology WHERE isDeleted!=1 ORDER BY validationOrg';
 	$r=mysql_query($q);
+	//echo mysql_errno();
+	//echo 'Значение r='.json_encode($r).'.';
 	while ($row=mysql_fetch_assoc($r)){
 		foreach($row as $key=>$value){
 			if ($value==''){$row[$key]='<br>'; }
