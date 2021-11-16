@@ -1,3 +1,0 @@
-var SFM_action = {
-	
-}

@@ -1,65 +1,91 @@
 var defects={};
-defects[1]={"title":"Прилип стекла", "level":"3",};
-defects[2]={"title":"Стеклянная нить", "level":"3"};
-defects[3]={"title":"Пузыри, открытые на внутреннюю поверхность", "level":"3"};
-
-defects[4]={"title":"Скол", "level":"3"};
-defects[5]={"title":"Сквозная посечка по венчику", "level":"3"};
-defects[6]={"title":"Сквозная посечка под венчиком", "level":"3"};
-defects[7]={"title":"Сквозная посечка по корпусу", "level":"3"};
-defects[8]={"title":"Сквозная посечка по плечу", "level":"3"};
-defects[9]={"title":"Сквозная посечка по дну", "level":"3"};
-defects[10]={"title":"Подпрессовка", "level":"3"};
-defects[11]={"title":"Острый шов", "level":"3"};
-defects[12]={"title":"Инородные включения с  посечками", "level":"3"};
-defects[13]={"title":"Внутреннее гидростатическое давление", "level":"3"};
-defects[14]={"title":"Осевая нагрузка", "level":"3"};
-defects[15]={"title":"Термостойкость", "level":"3"};
-defects[16]={"title":"Отжиг", "level":"3"};
-
-defects[110]={"title":"Вместимость", "level":"2"};
-defects[111]={"title":"Заусенец", "level":"2"};
-defects[112]={"title":"Толщина стенки", "level":"2"};
-defects[113]={"title":"Толщина дна", "level":"2"};
-defects[114]={"title":"Деформация венчика", "level":"2"};
-defects[115]={"title":"LOF", "level":"2"};
-defects[116]={"title":"Высота", "level":"2", "count":"yes"};
-defects[117]={"title":"Диаметр резьбы/ укупорочного кольца", "level":"2", "count":"yes"};
-defects[118]={"title":"Диаметр укрепляющего кольца", "level":"2"};
-defects[119]={"title":"Диаметр дублирующего кольца", "level":"2"};
-defects[120]={"title":"Диаметр внутренний на х глубине", "level":"2"};
-defects[121]={"title":"Диаметр внутренний минимальный в остальной части горловины", "level":"2"};
-defects[122]={"title":"Диаметр/размер корпуса", "level":"2"};
-defects[123]={"title":"Вогнутость/ выпуклость по корпусу", "level":"2"};
-defects[124]={"title":"Недопрессовка", "level":"2"};
-defects[125]={"title":"Деформация корпуса", "level":"2"};
-defects[126]={"title":"Сдвиг венчика", "level":"2", "count":"yes"};
-defects[127]={"title":"Отклонение от параллельности торца венчика", "level":"2"};
-defects[128]={"title":"Отклонение от перпендикулярности вертикальной оси", "level":"2"};
+//Класс А - Критические дефекты
+defects[1]={"title":"Прилип стекла", "level":"5",};
+defects[2]={"title":"Стеклянная нить", "level":"5"};
+//defects[3]={"title":"Пузыри, открытые на внутреннюю поверхность", "level":"3"};
 
 
-defects[200]={"title":"Пузыри закрытые и открытые", "level":"1"};
-defects[201]={"title":"Поверхностные посечки длиной  ", "level":"1"};
-defects[202]={"title":"Свиль", "level":"1", "count":"yes"};
-defects[203]={"title":"Мошка", "level":"1"};
-defects[204]={"title":"Грубый шов", "level":"1"};
-defects[205]={"title":"Уголок", "level":"1"};
-defects[206]={"title":"Поверхностная посечка", "level":"1"};
-defects[207]={"title":"След от плунжера", "level":"1"};
-defects[208]={"title":"Острое горло", "level":"1"};
+//Класс Б - Опасные дефекты
+defects[30]={"title":"Бой на Лере", "level":"4"};
+defects[31]={"title":"Скол", "level":"4"};
+defects[33]={"title":"Торцевая посечка", "level":"4"};
+defects[34]={"title":"Сквозная посечка по венчику", "level":"4"};
+defects[35]={"title":"Сквозная посечка под венчиком", "level":"4"};
+defects[36]={"title":"Сквозная посечка по корпусу", "level":"4"};
+defects[37]={"title":"Сквозная посечка по плечу", "level":"4"};
+defects[38]={"title":"Сквозная посечка по дну", "level":"4"};
+defects[39]={"title":"Трещина", "level":"4"};
+defects[40]={"title":"Подпрессовка", "level":"4"};
+defects[41]={"title":"Острый шов", "level":"4"};
+defects[42]={"title":"Инородные включения с  посечками", "level":"4"};
+defects[43]={"title":"Внутреннее гидростатическое давление", "level":"4"};
+defects[44]={"title":"Осевая нагрузка", "level":"4"};
+defects[45]={"title":"Термостойкость", "level":"4"};
+defects[46]={"title":"Ударная нагрузка", "level":"4"};
+defects[47]={"title":"Отжиг", "level":"4"};
 
-defects[209]={"title":"Складка", "level":"1"};
-defects[210]={"title":"Морщины", "level":"1"};
-defects[211]={"title":"След от ножниц", "level":"1"};
-defects[212]={"title":"Кованность", "level":"1"};
-defects[213]={"title":"Двойные швы", "level":"1"};
-defects[214]={"title":"Потертость", "level":"1"};
-defects[215]={"title":"Несмываемые загрязнения", "level":"1"};
+//Класс В - Значительные дефекты
+defects[110]={"title":"Вместимость", "level":"3"};
+defects[111]={"title":"Заусенец", "level":"3"};
+defects[112]={"title":"Толщина стенки", "level":"3"};
+defects[113]={"title":"Толщина дна", "level":"3"};
+defects[114]={"title":"Деформация венчика", "level":"3"};
+defects[115]={"title":"LOF", "level":"3"};
+defects[116]={"title":"Высота", "level":"3", "count":"yes"};
+defects[117]={"title":"Диаметр резьбы/укупорочного кольца", "level":"3", "count":"yes"};
+defects[118]={"title":"Диаметр укрепляющего кольца", "level":"3"};
+defects[119]={"title":"Диаметр дублирующего кольца", "level":"3"};
+defects[120]={"title":"Диаметр внутренний на х глубине", "level":"3"};
+defects[121]={"title":"Диаметр внутренний минимальный в остальной части горловины", "level":"3"};
+defects[122]={"title":"Диаметр/размер корпуса", "level":"3"};
+defects[123]={"title":"Вогнутость", "level":"3"};
+defects[124]={"title":"Выпуклость", "level":"3"};
+defects[125]={"title":"Овал", "level":"3"};
+defects[126]={"title":"Занижение под этикетку", "level":"3"};
+defects[127]={"title":"Недопрессовка", "level":"3"};
+defects[128]={"title":"Деформация корпуса", "level":"3"};
+defects[129]={"title":"Деформация горла", "level":"3"};
+defects[130]={"title":"Деформация дна", "level":"3"};
+defects[131]={"title":"Сдвиг венчика", "level":"3", "count":"yes"};
+defects[132]={"title":"Отклонение от параллельности торца венчика", "level":"3"};
+defects[133]={"title":"Отклонение от перпендикулярности вертикальной оси", "level":"3"};
 
-defects[216]={"title":"Простой", "level":"1"};
-defects[217]={"title":"Горячее напыление", "level":"1"};
-defects[218]={"title":"Холодное напыление", "level":"1"};
-defects[228]={"title":"ERROR", "level":"1"};
+//Класс Г - Менее опасные дефекты
+defects[200]={"title":"Пузыри закрытые", "level":"2"};
+defects[201]={"title":"Пузыри открытые", "level":"2"};
+defects[202]={"title":"Поверхностные посечки", "level":"2"};
+defects[203]={"title":"Свиль", "level":"2", "count":"yes"};
+defects[204]={"title":"Инородные включения", "level":"2", "count":"yes"};
+defects[205]={"title":"Мошка", "level":"2"};
+defects[206]={"title":"Грубый шов", "level":"2"};
+defects[207]={"title":"Забитый шов", "level":"2"};
+defects[208]={"title":"Смещение полуформ", "level":"2"};
+defects[209]={"title":"Грубое сопряжение", "level":"2"};
+defects[210]={"title":"Уголок", "level":"2"};
+defects[211]={"title":"След от плунжера", "level":"2"};
+defects[212]={"title":"Острое горло", "level":"2"};
+defects[213]={"title":"Залив горла", "level":"2"};
+
+//Класс Д - Неопасные дефекты
+defects[301]={"title":"Складка", "level":"1"};
+defects[302]={"title":"Морщины", "level":"1"};
+defects[303]={"title":"След отреза ножниц", "level":"1"};
+defects[304]={"title":"Кованность", "level":"1"};
+defects[305]={"title":"Шероховатость", "level":"1"};
+defects[306]={"title":"Забой по форме", "level":"1"};
+defects[307]={"title":"След смазки", "level":"1"};
+defects[308]={"title":"Двойной шов", "level":"1"};
+defects[309]={"title":"Потертость", "level":"1"};
+defects[310]={"title":"Загрязнения", "level":"1"};
+defects[311]={"title":"Царапина", "level":"1"};
+defects[312]={"title":"Непропечатка рисунка", "level":"1"};
+defects[313]={"title":"Непропечатка маркировки", "level":"1"};
+defects[314]={"title":"Неравномерный залив дна", "level":"1"};
+defects[315]={"title":"Горячее напыление", "level":"1"};
+defects[316]={"title":"Холодное напыление", "level":"1"};
+//defects[317]={"title":"Простой", "level":"1"};
+
+defects[666]={"title":"ERROR", "level":"1"};
 
 
 

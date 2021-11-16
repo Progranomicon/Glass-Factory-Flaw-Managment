@@ -48,6 +48,7 @@
 <?php 
 	}
 	else{
+	require 'cacheProductionToJson.php';
 	if (!isset($_GET['del']))
 		if( $_POST['id']=='0') {
 			echo '<br>POST='.$_POST['id']."<br>";
@@ -63,16 +64,18 @@
 				form='".$_POST['form']."', shortName='".$_POST['shortName']."', color='".$_POST['color']."', totalUnits='".$_POST['totalUnits']."', boxing='".$_POST['boxing']."',
 				layers='".$_POST['layers']."', h='".$_POST['h']."', target='".$_POST['target']."', process='".$_POST['process']."', 
 				sapCode='".$_POST['sapCode']."', gost='".$_POST['gost']."', sto='".$_POST['sto']."' WHERE idNomenclatures='".$_POST['id']."'";
-	if (isset ($_GET['del']))$q="UPDATE nomenclatures SET DateExcluded=NOW() WHERE idNomenclatures='".$_GET['del']."'";
-	$qres=mysql_query($q) or die ("Ошибка MySQL: ".mysql_error());
-	if ($qres>0){
-		echo '<span style="font-size:2em;color:green;">Успешно. </span>';
-		if (isset($_POST['fullName'])) {echo $_POST['internalCode'].', '.$_POST['fullName'].'.<br>';}
-	}
-	else{
-		echo '<span style="font-size:2em;color:red;">ОШИБКА. <br></span>'.$q;
-	}
-	echo '';
+		if (isset ($_GET['del']))$q="UPDATE nomenclatures SET DateExcluded=NOW() WHERE idNomenclatures='".$_GET['del']."'";
+			$qres=mysql_query($q) or die ("Ошибка MySQL: ".mysql_error());
+		if ($qres>0){
+			echo '<span style="font-size:2em;color:green;">Успешно. </span>';
+			if (isset($_POST['fullName'])) {
+				echo $_POST['internalCode'].', '.$_POST['fullName'].'.<br>';
+			}
+		}
+		else{
+			echo '<span style="font-size:2em;color:red;">ОШИБКА. <br></span>'.$q;
+		}
+		echo '';
 	}
 ?>
 <br><a style="margin-left:10cm;" href="/nomenclature/index.php">← Назад к списку</a>

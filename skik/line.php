@@ -262,7 +262,8 @@
 		if (isset($_SESSION['currentLine'])){
 			$query = "SELECT * FROM production_on_lines WHERE line='".$_SESSION['currentLine']."' AND date_end IS NULL";
 			$res=mysql_query($query);
-			if($res){
+			// echo "<br>Result >".mysql_num_rows($res)."<<br>";
+			if(mysql_num_rows($res)>0){
 				$prodRow = mysql_fetch_assoc($res);
 				$lineState['currentProduction'] = $prodRow['production_id'];
 				$lineState['currentProductionRecId'] = $prodRow['id'];

@@ -3,7 +3,7 @@
 ?>
 <html>
 <head>
-	<title>РСЗ. Контроль качества</title>
+	<title> Контроль качества</title>
 	<LINK rel="icon" href="/../favicon.gif" type="image/x-icon">
 	<LINK rel="shortcut icon" href="/../favicon.gif" type="image/x-icon">
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
@@ -66,12 +66,8 @@
         $(document).ready(function(){
 
 			fields = $('.smallField');
-			 
 			$(window).keyup(function(event){
-			//alert("key was unpressed \n" + event.which);
-			//console.log("key was unpressed \n" + event.which);
 			fieldsCount = fields.size();
-			// console.log("fields count: " + fieldsCount);
 			if(fieldsCount > 0){
 				switch(event.which){
 					case 37: //стрелка влево
@@ -89,8 +85,19 @@
 				}
 			}
 		});
-			<?php if(isset($_GET['line'])){if($_GET['line']!='') {echo 'currentLine='.$_GET['line'].';';}}else{};
-				  if(isset($_GET['userType'])){if($_GET['userType']!='') {echo 'userType="'.$_GET['userType'].'";';}}else{}?> /* OTK или SFM */
+			<?php 	if(isset($_GET['line'])){
+						if($_GET['line']!='') {echo 'currentLine='.$_GET['line']."';";}
+						
+					}else{
+						echo "currentLine='0';";
+					};
+					echo chr(13);
+					if(isset($_GET['userType'])){
+						if($_GET['userType']!='') {
+							echo 'userType="'.$_GET['userType'].'";';
+						}}else{
+							echo 'userType="OTK";';
+						}?> /* OTK или SFM */
 			getProductionList();
 		});
 	</script>

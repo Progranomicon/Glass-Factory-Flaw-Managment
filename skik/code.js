@@ -5,7 +5,7 @@ function updater(){
 	totalFlawPart = 0;
 	el('current_line').innerHTML = currentLine;
 	if(currentProductionId!=''){
-		el('current_production').innerHTML = currentProductionId + '(<a href="statistic/index.php?production=' + currentProductionId + '">' + productionList[currentProductionId].shortName + '</a>)';
+		el('current_production').innerHTML = productionList[currentProductionId].code + '(<a href="statistic/index.php?production=' + currentProductionId + '">' + productionList[currentProductionId].shortName + '</a>)';
 		if (userType == 'OTK') el('current_production').innerHTML += ' <input type="button" value="Снять" onclick="closeProduction()">';
 	}else{
 		if (userType == 'OTK') el('current_production').innerHTML ='<input type="button" value="Установить продукцию" onclick="customWindow.show(productionSelectorData)">';
@@ -88,7 +88,7 @@ function productSelector(contentDiv){
 			var str = inputStr.value;
 			divInContentDiv.innerHTML = '';
 			for(var id in productionList){
-				if(id.toLowerCase().indexOf(str.toLowerCase(), 0)>=0){
+				if(productionList[id].code.toLowerCase().indexOf(str.toLowerCase(), 0)>=0){
 					newElem = document.createElement('DIV');
 					newElem.style.cssFloat = 'left';
 					newElem.style.padding = '5px';
@@ -96,7 +96,7 @@ function productSelector(contentDiv){
 					if(productionList[id].color == '20') newElem.style.backgroundColor ='#cfc';
 					if(productionList[id].color == '30') newElem.style.backgroundColor ='#c96';
 					newElem.className = 'usable';
-					newElem.innerHTML = highlight(id, str)+'('+productionList[id].fullName+')';
+					newElem.innerHTML = highlight(productionList[id].code, str)+'('+productionList[id].fullName+')';
 					newElem.onclick = function(d){
 							return function(){
 								var molds=prompt("Введите количество форм");
@@ -193,6 +193,7 @@ function printCell(sec, pos){
 	}
 	
 	var ringHTML = '<div class="moldSubCell usable" style="background-color:#99f" onclick="kostilRing(' + sec + ',' + pos + ');customWindow.show(ringSelectorData)">-</div>';
+	if(lineState['rings'])
 	if(lineState['rings'][sec]){
 			if(lineState['rings'][sec][pos]){
 				ringHTML = '<div class="moldSubCell usable" style="background-color:#99f" onclick="kostilRing(' + sec + ',' + pos + ');customWindow.show(ringSelectorData)">' + lineState['rings'][sec][pos].num + '<br><span style="font-size:0.7em;font-weight:500">' + moment().diff(moment(lineState['rings'][sec][pos].date_start), 'hours') + ' ч.</span></div>';
@@ -200,6 +201,7 @@ function printCell(sec, pos){
 	}
 	
 	var roughMoldHTML = '<div class="usable moldSubCell" onclick="kostilRough(' + sec + ',' + pos + ');customWindow.show(roughMoldSelectorData)" style="color:white;background-color:black">-</div>';
+	if(lineState['rough_molds'])
 	if(lineState['rough_molds'][sec]){
 		if(lineState['rough_molds'][sec][pos]){
 			roughMoldHTML = '<div class="usable moldSubCell " style="color:white;background-color:black"  onclick="kostilRough(' + sec + ',' + pos + ');customWindow.show(roughMoldSelectorData)">' + lineState['rough_molds'][sec][pos].num + '<br><span style="font-size:0.7em;font-weight:500">' + moment().diff(moment(lineState['rough_molds'][sec][pos].date_start), 'hours') + ' ч.</span></div>';
@@ -663,10 +665,15 @@ function actionSelector(spDiv){
 			defectsDiv.appendChild(newElem);
 		}
 }
-function getColor(n){
-	if(n<100) return 'red';
-	if(n<200) return 'orange';
-	return 'yellow';
+function getColor(id){
+	if(defects[id].level == 5) return "#CC3300"; 
+	if(defects[id].level == 4) return "red"; 
+	if(defects[id].level == 3) return "orange"; 
+	if(defects[id].level == 2) return "#FFCC33"; 
+	if(defects[id].level == 1) return "yellow"; 
+	//if(n<100) return 'red';
+	//if(n<200) return 'orange';
+	//return 'yellow';
 }
 function timer(){
 	workLoop();
