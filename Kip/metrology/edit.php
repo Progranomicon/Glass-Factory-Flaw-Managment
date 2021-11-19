@@ -11,7 +11,7 @@
 <?php
 	require "connect.php";
 	if (!isset($_POST['toolName']) & !isset($_GET['del'])){
-		if (!isset($_GET['id']))  $_GET['id'] =0;
+		if (!isset($_GET['id']))  $_GET['id']=0;
 		$q="SELECT * from metrology where id='".$_GET['id']."'";
 		$r=mysql_query($q);
 		$row=mysql_fetch_assoc($r);
@@ -27,7 +27,7 @@
 ?>
 <form action="edit.php" METHOD="POST">
 <div>
-	<div class="labelForm">ID: </div><div class="formInput"><input type="hidden" name="id" value="<?php if (isset($row['id'])) echo '0';?>"><?php if ((isset($_GET['id'])) and ($_GET['id']==0)) echo 'Новый'; ?></div><br>
+	<div class="labelForm">ID: </div><div class="formInput"><input type="hidden" name="id" value="<?php if (!isset($_GET['id'])) echo '0'; else echo $_GET['id'];?>"><?php if ((isset($_GET['id'])) and ($_GET['id']==0)) echo 'Новый'; ?></div><br>
 	<div class="labelForm">Наименование:</div><div class="formInput"><input type="text" name="toolName"  value="<?php if (isset($row['toolName']) ) echo $row['toolName']; ?>"></div><br>
 	<div class="labelForm">Серийный номер:</div><div class="formInput"><input type="text" name="sn"  value="<?php if (isset($row['sn']) ) echo $row['sn']; ?>"></div><br>
 	<div class="labelForm">Тип:</div><div class="formInput"><input type="text" name="toolType"  value="<?php if (isset($row['toolType']) ) echo $row['toolType']; ?>"></div><br>
@@ -43,7 +43,7 @@
 	}
 	else{
 	if (!isset($_GET['del']))
-		if( $_POST['id']==0) {
+		if($_POST['id']==0) {
 			if ($_POST['frValidation']=='')$_POST['frValidation']=0;
 			$q="INSERT INTO metrology(toolName, sn, toolType, accClass, mRange, frValidation, lastValidation, validationOrg) VALUES ('".$_POST['toolName']."', '".$_POST['sn']."', '".$_POST['toolType']."', '".$_POST['accClass']."', '".$_POST['mRange']."', '".$_POST['frValidation']."', '".$_POST['lastValidation']."', '".$_POST['validationOrg']."')";
 			

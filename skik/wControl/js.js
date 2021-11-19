@@ -68,6 +68,7 @@ function productionSelectorField(){
 	if(arguments[0]){
 		var onclickStr="productionSelectorField()";
 		var modeText="";
+		mode = 1;
 		switch (mode){
 			case 1:
 				modeText='<input type="button" value="Статистика" onclick="setMode(3);"><input type="button" value="Паспорт" onclick="setMode(1);">';

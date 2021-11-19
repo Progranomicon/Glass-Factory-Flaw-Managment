@@ -19,21 +19,21 @@ endReportDate.hour(23);
 endReportDate.minute(59);
 endReportDate.second(59);
 
-/*function getProduction(){
+function getProduction(){
 	$.ajax('../../production.php',{type:"GET", data:{getProduction:"yes"},success:function(jsonProductionList){
 		//el("workspace").innerHTML=jsonProductionList;
 		//log(jsonProductionList);
 		window.productionList=$.parseJSON(jsonProductionList);
 		if (window.productionList.result.status=='ok'){
-			window.productionList=window.productionList.production;
-			setCurProduction('11100001');
+			window.productionList=window.productionList.data.production;
+			setCurProduction('1');
 		}
 		else{
 			alert ('Ошибка: '+productionList.result.status);	
 		}
 		},
 		error:error_handler});
-}*/
+}
 function setCurProduction(id){
 	el('productionSelector').innerHTML = '<span class="curProduction active" onclick="showProductionSelector();">'+productionList[id].fullName+'['+id+']</span>';
 	var list = el('productionListDiv');

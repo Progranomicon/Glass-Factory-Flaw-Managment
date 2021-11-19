@@ -149,7 +149,7 @@ function productionSelector(contentDiv){
 					if(productionList[id].color == '20') newElem.style.backgroundColor ='#cfc';
 					if(productionList[id].color == '30') newElem.style.backgroundColor ='#c96';
 					newElem.className = 'usable';
-					newElem.innerHTML = highlight(id, str)+'('+productionList[id].fullName+')';
+					newElem.innerHTML = highlight(productionList[id].internalCode, str)+'('+productionList[id].fullName+')';
 					newElem.onclick = function(d){
 							return function(){
 								setCurrentProduction(d);
@@ -160,6 +160,7 @@ function productionSelector(contentDiv){
 				}
 			}
 		}
+		inputStr.onkeyup();
 }
 function setCurrentProduction(id){
 	currentPeriod = null;

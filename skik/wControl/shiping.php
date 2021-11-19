@@ -73,6 +73,7 @@
 		function f(prodStr){
 			//log(prodStr);
 			productionList = $.parseJSON(prodStr);
+			productionList = productionList.data.production;
 			//alert('production loaded');
 			//if(currentProduction) setCurrentProduction(currentProduction);
 		}

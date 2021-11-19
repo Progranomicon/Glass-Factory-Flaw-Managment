@@ -2,14 +2,15 @@ var debug = false;
 var production;
 var periods={};
 var stats={};
-function getProduction(){
+function getProductionList(){
 	$.ajax('../../production.php',{type:"GET", data:{task:"getProduction"},success:productionReciever, error:error_handler});
 }
 function productionReciever(jsonProduction){
-	//	log(jsonProduction);
+	//log(jsonProduction);
 	var productionData = $.parseJSON(jsonProduction);
-		production = productionData.data.production;
+		productionList = productionData.data.production;
 		showMessages(productionData.info.messages);
+		if(currentProduction) setCurrentProduction(currentProduction);
 }
 function error_handler(){
 	miniMessage('Ошибка сети');
@@ -18,7 +19,7 @@ function getPeriods(){
 	$.ajax('wraper.php',{type:"GET", data:{task:"getPeriods", production:currentProduction},success:periodsReciever, error:error_handler});
 }
 function periodsReciever(jsonPeriods){
-	//log(jsonPeriods);
+	//console.log(jsonPeriods);
 	var n=0;
 	periods = $.parseJSON(jsonPeriods);
 	for(var id in periods){

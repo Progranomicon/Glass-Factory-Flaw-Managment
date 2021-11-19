@@ -110,6 +110,7 @@ function productSelector(contentDiv){
 				}
 			}
 		}
+		inputStr.onkeyup();
 }
 function table(){
 	var tableDiv = el('table');

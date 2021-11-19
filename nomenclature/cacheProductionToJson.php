@@ -33,7 +33,7 @@
 	
 	$nomList.= "}";
 	
-	$fp = fopen("../JSONCache/production_test.json", 'w');
+	$fp = fopen("../JSONCache/production.json", 'w');
 	
 	$wr = fwrite($fp, $nomList);
 	

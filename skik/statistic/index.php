@@ -3,7 +3,7 @@
 ?>
 <html>
 <head>
-	<title>РСЗ. Пасспорт продукции</title>
+	<title>Пасспорт продукции</title>
 	<LINK rel="icon" href="/../favicon.gif" type="image/x-icon">
 	<LINK rel="shortcut icon" href="/../favicon.gif" type="image/x-icon">
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
@@ -49,13 +49,13 @@
 		$(document).ready(function(){
 			<?php if(isset($_GET['production'])){if($_GET['production']!='') {echo 'currentProduction='.$_GET['production'].';';}}else{}?>
 			//updateInterface();
-			getProductionList(f);
+			getProductionList();
 		});
-		function f(prodStr){
-			//log(prodStr);
-			productionList = $.parseJSON(prodStr);
-			if(currentProduction) setCurrentProduction(currentProduction);
-		}
+		// function f(prodStr){
+			// //console.log(prodStr);
+			// productionList = $.parseJSON(prodStr);
+			// if(currentProduction) setCurrentProduction(currentProduction);
+		// }
 	</script>
 </body>
 </html>
