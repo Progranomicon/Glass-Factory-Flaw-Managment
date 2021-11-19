@@ -60,15 +60,17 @@ function fillList(){
 	if (list.innerHTML=='') list.innerHTML='Нет форматов с '+str+'.';
 }
 function setCurrentProduction(prodId){
+	//alert('mode='+ mode);
 	productionSelectorField(productionList[prodId].fullName+' <br><span style="color:grey;font-size:0.5em;">('+productionList[prodId].totalUnits+' шт., '+productionList[prodId].boxing+')['+prodId+']</span>');
 	currenProductionId=prodId;
+	
 	getProductionParams(currenProductionId);
 }
 function productionSelectorField(){
 	if(arguments[0]){
 		var onclickStr="productionSelectorField()";
 		var modeText="";
-		mode = 1;
+		//mode = 1;
 		switch (mode){
 			case 1:
 				modeText='<input type="button" value="Статистика" onclick="setMode(3);"><input type="button" value="Паспорт" onclick="setMode(1);">';
@@ -402,8 +404,11 @@ function normalizeStatistic(){
 	updateDate();
 }
 function setMode(x){
+	
 	mode=x;
+	//alert('mode='+ mode);
 	setCurrentProduction(currenProductionId);
+	
 }
 function updateDate(){
 	el('startDate').innerHTML=startReportDate.format('H:mm D MMM YYYY');
