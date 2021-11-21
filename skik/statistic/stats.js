@@ -1,5 +1,7 @@
-var allowCriticalFlaw = 0.5;
-var allowSeriousFlaw = 3.0;
+var allowCriticalFlaw = 0.25;
+var allowDangerousFlaw = 1.0;
+var allowSeriousFlaw = 2.5;
+var allowLessSeriousFlaw = 4.0;
 var allowNonSeriousFlaw = 6.5;
 
 var periodDiff;
@@ -64,6 +66,8 @@ function getMainGraphArray(){
 		mainStat['IO'] = 0;
 		mainStat['critical'] = 0;
 		mainStat['danger'] = 0;
+		mainStat['serious'] = 0;
+		mainStat['lessSerious'] = 0;
 		mainStat['noDanger'] = 0;
 		
 		flawByType = [];
@@ -214,9 +218,15 @@ function iterFunc(){
 						mainStat['noDanger'] +=  totalFlawPart;
 					break;
 					case "2":
-						mainStat['danger'] +=  totalFlawPart;
+						mainStat['lessSerious'] +=  totalFlawPart;
 					break;
 					case "3":
+						mainStat['serious'] +=  totalFlawPart;
+					break;
+					case "4":
+						mainStat['danger'] +=  totalFlawPart;
+					break;
+					case "5":
 						mainStat['critical'] +=  totalFlawPart;
 					break;
 				}
@@ -513,31 +523,49 @@ function showColumns(){
                 text: '%'
             },
 			plotLines: [{
-                color: '#FF0000',
+                color: '#CC3300',
                 width: 2,
                 value: allowCriticalFlaw,
 				label: {
-                    text: 'Критичный('+allowCriticalFlaw+'%)',
+                    text: 'Критический('+allowCriticalFlaw+'%)',
                     align: 'left',
                     x: 10
                 }
 				},{
-                color: '#FFFF10',
+                color: '#FF0000',
+                width: 2,
+                value: allowDangerousFlaw,
+				label: {
+                    text: 'Опасный ('+allowDangerousFlaw+'%)',
+                    align: 'left',
+                    x: 10
+                }
+            },{
+                color: 'orange',
                 width: 2,
                 value: allowSeriousFlaw,
 				label: {
-                    text: 'Опасный ('+allowSeriousFlaw+'%)',
+                    text: 'Значительный ('+allowSeriousFlaw+'%)',
                     align: 'left',
-                    x: 60
+                    x: 10
                 }
             },{
-                color: '#9999AA',
+                color: '#FFCC33',
+                width: 2,
+                value: allowLessSeriousFlaw,
+				label: {
+                    text: 'Менее опасный ('+allowLessSeriousFlaw + '%)',
+                    align: 'left',
+                    x: 10
+                }
+            },{
+                color: 'yellow',
                 width: 2,
                 value: allowNonSeriousFlaw,
 				label: {
                     text: 'Не опасный ('+allowNonSeriousFlaw+'%)',
                     align: 'left',
-                    x: 110
+                    x: 10
                 }
             }]
         },
@@ -553,17 +581,25 @@ function showColumns(){
             }
         },
         series: [{
-            name: 'Критичный',
+            name: 'Критический',
             data: [parseFloat(normF(mainStat['critical'], 2))],
-			color: '#ff1010'
+			color: '#CC3300'
         }, {
             name: 'Опасный',
             data: [parseFloat(normF(mainStat['danger'], 2))],
-			color: '#ffff10'
+			color: '#f00'
+        },{
+            name: 'Значительный',
+            data: [parseFloat(normF(mainStat['serious'], 2))],
+			color: 'orange'
+        },{
+            name: 'Менее опасный',
+            data: [parseFloat(normF(mainStat['lessSerious'], 2))],
+			color: '#FFCC33'
         }, {
             name: 'Не опасный',
             data: [parseFloat(normF(mainStat['noDanger'], 2))],
-			color: '#aaaaaa'
+			color: 'yellow'
         }]
     });
 	$('#flawByTypeGist').highcharts({

@@ -24,12 +24,38 @@ function updateInterface(){
 		case 3:
 			downtimes();
 		break;
+		case 4:
+			newTableReport();
+		break;
 	}
 }
 function oldFlawReport(){
 	el('report_type').innerHTML = 'Старый отчет по бракам';
 	el('statsDiv').innerHTML = '<h2 style="page-break-before:always">Брак в целом</h2><div id="mainGraphGist" class="halfScreenGist"></div><div id="mainGraphCritGist" class="halfScreenGist"></div><div style="page-break-before:always" id="mainGraph"></div><div id="mainStat"></div><h2 style="page-break-before:always">Брак по типу</h2><div id="flawByTypeGist"></div><div id="flawByType"></div><br><div id="flawTypes"></div><h2 style="page-break-before:always">Брак по формам</h2><div id="flawByMoldGist" ></div><div id="flawByMold"></div><br><div id="usedMolds"></div><div id="moldsData"></div>';
 	processStats();
+}
+function newTableReport(){
+	el('statsDiv').innerHTML = '<h2 style="page-break-before:always">Брак по всем внесенным данным за период</h2></div><div id="newRepData"></div>';
+	el('report_type').innerHTML = 'Отчет по бракам (таблица)';
+	$.ajax('wraper.php',{type:"GET", data:{task:"getStats", period:currentPeriod},success:function f(data){
+		log(data);
+		return;
+		stats = $.parseJSON(data);
+		moldsHours = {};
+		for(var mold in moldsData){
+			for(var period in moldsData[mold]){
+				if(moldsData[mold][period]['date_end'] == null) moldsData[mold][period]['date_end'] = moment();
+				if(typeof(moldsHours[mold]) == 'undefined') moldsHours[mold] = 0;
+				moldsData[mold][period].hours = moment(moldsData[mold][period]["date_end"]).diff(moldsData[mold][period]["date_start"], 'hours');
+				moldsHours[mold] += moldsData[mold][period].hours*1;
+			}
+		}
+		//console.log(jstr(moldsHours));
+		el('statsDiv').innerHTML = '<h2>Отчет по чистовым формам</h2>';
+		for(var mold in moldsHours){
+			el('statsDiv').innerHTML += '<div class="usable" onclick="getMoldHist('+mold+')">Форма ' + mold + ', ' + moldsHours[mold] + ' ч. </div>';
+		}
+	}, error:error_handler});
 }
 function moldsReport(){
 	el('statsDiv').innerHTML = '<h2 style="page-break-before:always">Брак в целом</h2><div id="mainGraphGist" class="halfScreenGist"></div><div id="mainGraphCritGist" class="halfScreenGist"></div><div style="page-break-before:always" id="mainGraph"></div><div id="mainStat"></div><h2 style="page-break-before:always">Брак по типу</h2><div id="flawByTypeGist"></div><div id="flawByType"></div><br><div id="flawTypes"></div><h2 style="page-break-before:always">Брак по формам</h2><div id="flawByMoldGist" ></div><div id="flawByMold"></div><br><div id="usedMolds"></div><div id="moldsData"></div>';
@@ -80,6 +106,7 @@ function showRepTypeSelector(){
 		wDiv.innerHTML += '<div class="usable" onclick="setRepType(1)">Старый отчет по бракам</div>';
 		wDiv.innerHTML += '<div class="usable" onclick="setRepType(2)">Отчет по формам</div>';
 		wDiv.innerHTML += '<div class="usable" onclick="setRepType(3)">Отчет по простоям</div>';
+		wDiv.innerHTML += '<div class="usable" onclick="setRepType(4)">Отчет по бракам (таблица)</div>';
 		contentDiv.appendChild(wDiv);
 	});
 }
@@ -133,7 +160,7 @@ function productionSelector(contentDiv){
 	var inputStr = document.createElement('INPUT');
 	var divInContentDiv = document.createElement('DIV');
 		divInContentDiv.style.textAlign = 'left';
-		divInContentDiv.style.width = '400px';
+		divInContentDiv.style.width = '300px';
 		contentDiv.appendChild(inputStr);
 		inputStr.focus();
 		contentDiv.appendChild(divInContentDiv);
@@ -149,7 +176,7 @@ function productionSelector(contentDiv){
 					if(productionList[id].color == '20') newElem.style.backgroundColor ='#cfc';
 					if(productionList[id].color == '30') newElem.style.backgroundColor ='#c96';
 					newElem.className = 'usable';
-					newElem.innerHTML = highlight(productionList[id].internalCode, str)+'('+productionList[id].fullName+')';
+					newElem.innerHTML = highlight(productionList[id].code, str)+'('+productionList[id].fullName+')';
 					newElem.onclick = function(d){
 							return function(){
 								setCurrentProduction(d);

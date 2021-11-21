@@ -14,6 +14,9 @@
 	if ($task=='getMoldsStats'){
 		echo getMoldsStats($_GET['periodId']);
 	}
+	if ($task=='getNewRepData'){
+		echo getNewRepData($_GET['periodId']);
+	}
 	function getPeriods($production){
 		$periods = array();
 		$query = "SELECT * FROM production_on_lines WHERE `production_id` ='".$production."' ORDER BY `date_start`";
@@ -63,5 +66,8 @@
 			
 		}
 		return json_encode($answer);
+	}
+	function getNewRepData($periodId){
+		
 	}
 ?>

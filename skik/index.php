@@ -86,7 +86,7 @@
 			}
 		});
 			<?php 	if(isset($_GET['line'])){
-						if($_GET['line']!='') {echo 'currentLine='.$_GET['line']."';";}
+						if($_GET['line']!='') {echo 'currentLine='.$_GET['line'].";";}
 						
 					}else{
 						echo "currentLine='0';";
