@@ -1,0 +1,65 @@
+[33mcommit be8736bad7f044acada7be06a31ac2a22de9fc41[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31msteklo/master[m[33m)[m
+Author: Progranomicon <jbekin@ya.ru>
+Date:   Mon Nov 22 00:05:22 2021 +0300
+
+    fixing old reports, some improvements on skik
+
+[33mcommit d08a82791a9805dc02b7657ee26371625903770c[m
+Author: Progranomicon <jbekin@ya.ru>
+Date:   Fri Nov 19 14:40:53 2021 +0300
+
+    some fixes 3 and modify gitignore
+
+[33mcommit 86b01c310909640cbc870bfefb8758ea28c652f0[m
+Author: Progranomicon <jbekin@ya.ru>
+Date:   Fri Nov 19 14:38:56 2021 +0300
+
+    some fixes 3
+
+[33mcommit 158118086c0b14b0f75b46fdda67cf7ecf64dd39[m
+Author: Progranomicon <jbekin@ya.ru>
+Date:   Fri Nov 19 13:47:00 2021 +0300
+
+    some fixes reports and metrology2
+
+[33mcommit 97cbbb696ca88d6ccdf518bde572a2fbf3974862[m
+Author: Progranomicon <jbekin@ya.ru>
+Date:   Tue Nov 16 11:03:45 2021 +0300
+
+    modifing skik front for Nomenclature directory
+
+[33mcommit d610796dc5c92ffde5805f53ce736477d9201d08[m
+Author: Progranomicon <jbekin@ya.ru>
+Date:   Mon Nov 8 09:11:11 2021 +0300
+
+    Adding Nomenclature Directory and PHP7.4+ fixes
+
+[33mcommit d134c1c41e7bf5f3de9da8c47c716a687071cd54[m
+Author: Progranomicon <jbekin@ya.ru>
+Date:   Wed Nov 3 11:19:40 2021 +0300
+
+    tuning gitignore, start ignoring legacy
+
+[33mcommit 55ad811cb1c858d46fbc2adc71ff0e7925db6673[m
+Author: Progranomicon <jbekin@ya.ru>
+Date:   Wed Nov 3 11:11:13 2021 +0300
+
+    tuning gitignore
+
+[33mcommit 51679f168ee7fe9a2712f92c77029d339095b698[m
+Author: Progranomicon <jbekin@ya.ru>
+Date:   Wed Nov 3 11:05:22 2021 +0300
+
+    make runable on php 7+
+
+[33mcommit a563444229e396a67cdcb487523d6e5f6b1e3c14[m
+Author: Progranomicon <Jbekin@ya.ru>
+Date:   Tue Nov 2 17:53:51 2021 +0400
+
+    test, learning
+
+[33mcommit 32609b613fe3648a66e4de293209e0c368b3be33[m
+Author: Progranomicon <Jbekin@ya.ru>
+Date:   Tue Oct 26 10:14:28 2021 +0400
+
+    legacy load
