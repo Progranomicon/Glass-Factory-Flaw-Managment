@@ -8,6 +8,7 @@ var moldsData = {};
 
 function updateInterface(){
 	el('currentProduction').innerHTML = "Не выбрана продукция";
+	
 	if(currentProduction) if(productionList[currentProduction]) el('currentProduction').innerHTML = productionList[currentProduction].fullName;
 	if(currentPeriod) el('currentPeriod').innerHTML = 'c ' + periods[currentPeriod].date_start+' по '+periods[currentPeriod].date_end+'<br><span style="font-size:0.7em">'+periods[currentPeriod].molds+ ' форм, плановый КИС: '+ periods[currentPeriod].kis;
 	else  el('currentPeriod').innerHTML = "Не выбран период";
@@ -37,25 +38,43 @@ function oldFlawReport(){
 function newTableReport(){
 	el('statsDiv').innerHTML = '<h2 style="page-break-before:always">Брак по всем внесенным данным за период</h2></div><div id="newRepData"></div>';
 	el('report_type').innerHTML = 'Отчет по бракам (таблица)';
+	var resultHTML;
+	
+	resultHTML = '<table><tr><th>Время</th><th>Параметр</th><th>Значение параметра</th><th>% брака</th><th>примечание</th><th>Способ коррекции</th></tr>';
+	
+	
 	$.ajax('wraper.php',{type:"GET", data:{task:"getStats", period:currentPeriod},success:function f(data){
-		log(data);
-		return;
-		stats = $.parseJSON(data);
-		moldsHours = {};
-		for(var mold in moldsData){
-			for(var period in moldsData[mold]){
-				if(moldsData[mold][period]['date_end'] == null) moldsData[mold][period]['date_end'] = moment();
-				if(typeof(moldsHours[mold]) == 'undefined') moldsHours[mold] = 0;
-				moldsData[mold][period].hours = moment(moldsData[mold][period]["date_end"]).diff(moldsData[mold][period]["date_start"], 'hours');
-				moldsHours[mold] += moldsData[mold][period].hours*1;
+		//log(data);
+		stats = $.parseJSON('{'+data+'}');
+		stats = stats.lineState;
+		machineIterator(function(){
+			var startDiff;
+			var intersection;
+			var flawLength;
+			var flawDateStart, flawDateEnd, moldDateStart, moldDateEnd;
+			for(var moldId in this){
+				for(var flawId in this[moldId].flaw){
+						
+						flawData = this[moldId].flaw[flawId];
+						//console.log(flawData);
+						flawDateStart = moment(flawData.date_start);
+						if(flawData.date_end == null) flawDateEnd = moment();
+						else flawDateEnd = moment(flawData.date_end);
+						if (flawDateStart.isBetween(dateFrom, dateTo) || flawDateEnd.isBetween(dateFrom, dateTo)){ 
+								resultHTML += '<tr><td>' + flawData.date_start + ' - ';
+								if (flawData.date_end) resultHTML += flawData.date_end +  '</td>';
+								else resultHTML += 'не устранен</td>';
+								resultHTML += '<td>' + defects[flawData.flaw_type].title + '</td><td>' + flawData.parameter_value + '</td><td>' + flawData.flaw_part + '%</td><td>' + flawData.comment + '</td>';
+								if(flawData.corrective_action) 	resultHTML += '<td>' + SFM_actions[flawData.corrective_action] + '</td></tr>';
+								else resultHTML += '<td>Ожидает коррекции</td></tr>';
+						}
+				}
 			}
-		}
-		//console.log(jstr(moldsHours));
-		el('statsDiv').innerHTML = '<h2>Отчет по чистовым формам</h2>';
-		for(var mold in moldsHours){
-			el('statsDiv').innerHTML += '<div class="usable" onclick="getMoldHist('+mold+')">Форма ' + mold + ', ' + moldsHours[mold] + ' ч. </div>';
-		}
+		},stats);
 	}, error:error_handler});
+	alert("Готово");
+	resultHTML+='</table>';
+	el('statsDiv').innerHTML = resultHTML;
 }
 function moldsReport(){
 	el('statsDiv').innerHTML = '<h2 style="page-break-before:always">Брак в целом</h2><div id="mainGraphGist" class="halfScreenGist"></div><div id="mainGraphCritGist" class="halfScreenGist"></div><div style="page-break-before:always" id="mainGraph"></div><div id="mainStat"></div><h2 style="page-break-before:always">Брак по типу</h2><div id="flawByTypeGist"></div><div id="flawByType"></div><br><div id="flawTypes"></div><h2 style="page-break-before:always">Брак по формам</h2><div id="flawByMoldGist" ></div><div id="flawByMold"></div><br><div id="usedMolds"></div><div id="moldsData"></div>';
@@ -95,7 +114,8 @@ function getMoldHist(mold){
 }
 function downtimes(){
 	el('report_type').innerHTML = 'Отчет по простоям';
-	alert("Отчет по Простоям");
+	//alert("Отчет по Простоям");
+	el('statsDiv').innerHTML = '<h2>Отчет по чистовым формам</h2> В разработке / Now developing';
 }
 function showRepTypeSelector(){
 	modalWindow.show("Тип отчета", function(contentDiv){

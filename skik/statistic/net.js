@@ -19,6 +19,7 @@ function getPeriods(){
 	$.ajax('wraper.php',{type:"GET", data:{task:"getPeriods", production:currentProduction},success:periodsReciever, error:error_handler});
 }
 function periodsReciever(jsonPeriods){
+	
 	//console.log(jsonPeriods);
 	var n=0;
 	periods = $.parseJSON(jsonPeriods);

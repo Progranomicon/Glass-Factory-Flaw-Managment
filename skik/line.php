@@ -94,7 +94,8 @@
 								t2.action,							
 								t2.flaw_type, 
 								t2.parameter_value,
-								t2.comment
+								t2.comment,
+								t2.corrective_action
 							FROM molds AS t1 
 							LEFT JOIN 
 								 flaw AS t2 
@@ -107,7 +108,7 @@
 				}
 			}
 		$fp = fopen($_SERVER['DOCUMENT_ROOT'].'/skik/states/'.$periodId.'full.json', 'w');
-		$wr = fwrite($fp, '"lineState":'.json_encode($state));
+		$wr = fwrite($fp, '"lineState" : '.json_encode($state));
 		fclose($fp);
 	}
 	function addCellToFullState(&$stateArray, $cell, $setEndDate){
@@ -133,6 +134,7 @@
 				$stateArray[$sec][$pos][$moldRecId]['flaw'][$flawRecId]['date_start'] = $cell['date_start'];
 				$stateArray[$sec][$pos][$moldRecId]['flaw'][$flawRecId]['date_end'] = $cell['date_end'];
 				$stateArray[$sec][$pos][$moldRecId]['flaw'][$flawRecId]['comment'] = $cell['comment'];
+				$stateArray[$sec][$pos][$moldRecId]['flaw'][$flawRecId]['corrective_action'] = $cell['corrective_action'];
 		}
 	}
 	function addCellToState(&$stateArray, $cell, $setEndDate){

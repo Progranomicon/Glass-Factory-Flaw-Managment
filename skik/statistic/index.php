@@ -48,14 +48,8 @@
 		var currentProduction;
 		$(document).ready(function(){
 			<?php if(isset($_GET['production'])){if($_GET['production']!='') {echo 'currentProduction='.$_GET['production'].';';}}else{}?>
-			//updateInterface();
 			getProductionList();
 		});
-		// function f(prodStr){
-			// //console.log(prodStr);
-			// productionList = $.parseJSON(prodStr);
-			// if(currentProduction) setCurrentProduction(currentProduction);
-		// }
 	</script>
 </body>
 </html>

@@ -26,7 +26,8 @@ function processStats(){
 	flawIds = [];
 	getMainGraphArray();
 	//log('<b>molds:' + molds + ', flaws:' + flaws + '</b>');
-	el('mainStat').innerHTML = '';
+	//el('mainStat').innerHTML = '';
+	//el('statsDiv').innerHTML = '<h2 style="page-break-before:always">Брак в целом</h2><div id="mainGraphGist" class="halfScreenGist"></div><div id="mainGraphCritGist" class="halfScreenGist"></div><div style="page-break-before:always" id="mainGraph"></div><div id="mainStat"></div><h2 style="page-break-before:always">Брак по типу</h2><div id="flawByTypeGist"></div><div id="flawByType"></div><br><div id="flawTypes"></div><h2 style="page-break-before:always">Брак по формам</h2><div id="flawByMoldGist" ></div><div id="flawByMold"></div><br><div id="usedMolds"></div><div id="moldsData"></div>';	
 	el('mainStat').innerHTML = '';
 	el('flawTypes').innerHTML = '';
 	/*for(var i in flawIds){
