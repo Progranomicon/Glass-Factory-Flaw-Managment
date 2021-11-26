@@ -36,7 +36,7 @@ function oldFlawReport(){
 	processStats();
 }
 function newTableReport(){
-	el('statsDiv').innerHTML = '<h2 style="page-break-before:always">Брак по всем внесенным данным за период</h2></div><div id="newRepData"></div>';
+	el('statsDiv').innerHTML = '<h2 style="page-break-before:always">Брак по всем внесенным данным  актуальным на период</h2></div><div id="newRepData"></div>';
 	el('report_type').innerHTML = 'Отчет по бракам (таблица)';
 	var resultHTML;
 	
@@ -51,6 +51,7 @@ function newTableReport(){
 			var startDiff;
 			var intersection;
 			var flawLength;
+			var oddEven=1;
 			var flawDateStart, flawDateEnd, moldDateStart, moldDateEnd;
 			for(var moldId in this){
 				for(var flawId in this[moldId].flaw){
@@ -61,7 +62,15 @@ function newTableReport(){
 						if(flawData.date_end == null) flawDateEnd = moment();
 						else flawDateEnd = moment(flawData.date_end);
 						if (flawDateStart.isBetween(dateFrom, dateTo) || flawDateEnd.isBetween(dateFrom, dateTo)){ 
-								resultHTML += '<tr><td>' + flawData.date_start + ' - ';
+								if(oddEven == 1 ) {
+									resultHTML +='<tr class=even>';
+									oddEven = 0;
+								}
+								else {
+									resultHTML +='<tr class=odd>';
+									oddEven = 1;
+								}
+								resultHTML += '<td>' + flawData.date_start + ' - ';
 								if (flawData.date_end) resultHTML += flawData.date_end +  '</td>';
 								else resultHTML += 'не устранен</td>';
 								resultHTML += '<td>' + defects[flawData.flaw_type].title + '</td><td>' + flawData.parameter_value + '</td><td>' + flawData.flaw_part + '%</td><td>' + flawData.comment + '</td>';
@@ -70,11 +79,13 @@ function newTableReport(){
 						}
 				}
 			}
+			
 		},stats);
+		resultHTML+='</table>';
+		el('statsDiv').innerHTML += resultHTML;
 	}, error:error_handler});
-	alert("Готово");
-	resultHTML+='</table>';
-	el('statsDiv').innerHTML = resultHTML;
+	//alert("Готово");
+	
 }
 function moldsReport(){
 	el('statsDiv').innerHTML = '<h2 style="page-break-before:always">Брак в целом</h2><div id="mainGraphGist" class="halfScreenGist"></div><div id="mainGraphCritGist" class="halfScreenGist"></div><div style="page-break-before:always" id="mainGraph"></div><div id="mainStat"></div><h2 style="page-break-before:always">Брак по типу</h2><div id="flawByTypeGist"></div><div id="flawByType"></div><br><div id="flawTypes"></div><h2 style="page-break-before:always">Брак по формам</h2><div id="flawByMoldGist" ></div><div id="flawByMold"></div><br><div id="usedMolds"></div><div id="moldsData"></div>';

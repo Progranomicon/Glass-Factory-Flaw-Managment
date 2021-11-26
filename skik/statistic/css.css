@@ -21,3 +21,8 @@ body{
 .statDiv span{
 	font-weight: 700;
 }
+.odd{
+	background-color: white;
+}
+.even{
+	background-color: #bbb;
