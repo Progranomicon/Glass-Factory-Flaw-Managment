@@ -30,13 +30,13 @@
 			$messages[] = 'Ошибкась при снятии';
 		}
 	}
-	function addFlaw($fType, $fPart, $fAction, $comment, $parameterValue, $moldsList){
+	function addFlaw($fType, $fPart, $fAction, $comment, $parameterValue, $moldsList, $flaw_author){
 		global $messages;
 		$moldsArray = explode(",", $moldsList);
-		$query = "INSERT INTO flaw(`move_id`, `flaw_type`, `flaw_part`, `parameter_value`, `action`, `comment`, `date_start`) VALUES ";
+		$query = "INSERT INTO flaw(`move_id`, `flaw_type`, `flaw_part`, `parameter_value`, `action`, `comment`, `date_start`, `flaw_author`) VALUES ";
 		$delim = "";
 		foreach($moldsArray as $mold){
-		$query .= $delim."('".$mold."', '".$fType."', '".$fPart."', '".$parameterValue."', '".$fAction."', '".$comment."', NOW())";
+		$query .= $delim."('".$mold."', '".$fType."', '".$fPart."', '".$parameterValue."', '".$fAction."', '".$comment."', NOW(),'".$flaw_author."')";
 			$delim = ", ";
 		}
 		//echo $query;
@@ -56,6 +56,16 @@
 			$messages[] = 'Брак '.$fId.' закрыт';
 		}else{
 			$messages[] = 'Ошибкась при закрытии';
+		}
+	}
+	function acceptFlaw($fId){
+		global $messages;
+		$query = "UPDATE flaw SET `flaw_author`= 'OTK' WHERE `id`='".$fId."'";
+		$res=mysql_query($query);
+		if (mysql_affected_rows()==1){
+			$messages[] = 'Брак '.$fId.' принят';
+		}else{
+			$messages[] = 'Ошибкась при принятии брака';
 		}
 	}
 	function getNotClosedFlawListByMoldId($moldId){

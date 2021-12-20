@@ -13,6 +13,10 @@
 	$lineState = getLineState();
 	
 	if(isset($_GET['task'])){
+		if($_GET['task']=='acceptFlaw'){
+			acceptFlaw($_GET['id']);
+			dumpLineState($lineState['currentProductionRecId']);
+		}
 		if($_GET['task']=='mount'){
 			mountMold($_GET['mold'],$_GET['section'],$_GET['position']);
 			dumpLineState($lineState['currentProductionRecId']);
@@ -30,7 +34,7 @@
 			dumpLineState($lineState['currentProductionRecId']);
 		}
 		if($_GET['task']=='addFlaw'){
-			addFlaw($_GET['flaw_type'], $_GET['flaw_part'], $_GET['action'], $_GET['comment'], $_GET['parameter_value'], $_GET['moldsList']);
+			addFlaw($_GET['flaw_type'], $_GET['flaw_part'], $_GET['action'], $_GET['comment'], $_GET['parameter_value'], $_GET['moldsList'], $_GET['flaw_author']);
 			dumpLineState($lineState['currentProductionRecId']);
 		}
 		if($_GET['task']=='closeFlaw'){
@@ -83,6 +87,20 @@
 			dumpLineState($lineState['currentProductionRecId']);
 		}
 	}
+	function getW(){
+		$r = '"weights":"error"';
+		$res = mysql_query("SELECT weight FROM factory.weights ORDER BY `date` DESC LIMIT 0, 4");
+				if($res){
+						$delim =" g. &nbsp &nbsp &nbsp";
+						$r = '"weights":"';
+						while($row = mysql_fetch_assoc($res)){
+							$r .= $row['weight'].$delim;
+							//$delim = " g. &nbsp &nbsp &nbsp";
+						}
+						$r .= '"';
+				}else echo $res;
+		echo $r;
+	}
 	function printAnswer(){
 		global $messages;
 		global $lineState;
@@ -92,7 +110,9 @@
 		echo '"currentProduction":{"id":"'.$lineState['currentProduction'].'"},';
 		echo '"currentLine":"'.$_SESSION['currentLine'].'",';
 		echo getCurrentLineState();
-		echo '}, "info":{';
+		echo '},';
+		echo getW();
+		echo ',"info":{';
 		echo '"messages":[';
 		$delim = '';
 		foreach($messages as $message){

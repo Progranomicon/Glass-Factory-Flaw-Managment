@@ -27,3 +27,22 @@ body{
 .paddingLeft2Pr{
 	padding-left:2%;
 }
+
+
+.blink-1 {
+  animation-name: blink;
+  animation-timing-function: linear;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+.blink-2 {
+  animation-name: blink;
+  animation-timing-function: linear;
+  animation-duration: 0.3s;
+  animation-iteration-count: infinite;  
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}

@@ -1,3 +1,4 @@
+
 function getProductionList(){
 	$.ajax('../production.php',{type:"GET", data:{task:"getProduction"},success:productionReciever, error:error_handler});
 }
@@ -32,10 +33,13 @@ function unmountAllSFM(id){
 	$.ajax('wraper.php',{type:"GET", data:{task:"unmountAllSFM", id:id},success:reciever, error:error_handler});
 }
 function addFlaw(data){
-	$.ajax('wraper.php',{type:"GET", data:{task:"addFlaw", moldsList:data.moldsIdsList, flaw_type:data.flaw_type, flaw_part:data.flaw_part, parameter_value:data.parameter_value, comment:data.comment, action:data.action},success:reciever, error:error_handler});
+	$.ajax('wraper.php',{type:"GET", data:{task:"addFlaw", moldsList:data.moldsIdsList, flaw_type:data.flaw_type, flaw_part:data.flaw_part, parameter_value:data.parameter_value, comment:data.comment, action:data.action, flaw_author:data.userType},success:reciever, error:error_handler});
 }
 function closeFlaw(id){
 	$.ajax('wraper.php',{type:"GET", data:{task:"closeFlaw", id:id},success:reciever, error:error_handler});
+}
+function acceptFlaw(id){
+	$.ajax('wraper.php',{type:"GET", data:{task:"acceptFlaw", id:id},success:reciever, error:error_handler});
 }
 function addMIFlaw(data){
 	$.ajax('wraper.php',{type:"GET", data:{task:"addMIFlaw", flaw_type:data.flaw_type, flaw_part:data.flaw_part, inspection_type:data.inspection_type},success:reciever, error:error_handler});
@@ -80,6 +84,7 @@ function reciever(jsonData){
 		if(exist(fullData.data.currentLine)){
 			currentLine = fullData.data.currentLine;
 		}
+		
 	}
 	
 	for(var m in fullData.info.messages){
@@ -88,6 +93,7 @@ function reciever(jsonData){
 	//alert(fullData.info.serverTime);
 	serverTime=moment(fullData.info.serverTime);
 	moldsOnLine = [];
+	we = fullData.weights;
 	machineIterator(getMoldsOnLine);
 	//log(jstr(moldsOnLine));
 	updater();

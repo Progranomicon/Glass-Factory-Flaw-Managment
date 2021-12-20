@@ -62,6 +62,7 @@
 		var fields =[];			
 		var currentField = 0;
 		var fieldsCount = 0;
+		we = "none";
 		isAuth = true;
         $(document).ready(function(){
 

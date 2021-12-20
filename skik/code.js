@@ -1,6 +1,7 @@
 var totalFlawPart = 0;
 var moldsOnLine = [];
 
+
 function updater(){
 	totalFlawPart = 0;
 	el('current_line').innerHTML = currentLine;
@@ -115,7 +116,9 @@ function productSelector(contentDiv){
 function table(){
 	var tableDiv = el('table');
 	var rowHTML;
-		tableDiv.innerHTML = '<div class="tableRow"><div class="lineNumDiv">Секц.</div><div class="positionDiv">Внешние</div><div class="positionDiv">Внутренние</div></div>';
+		tableDiv.innerHTML ="";
+		if (currentLine == 1)tableDiv.innerHTML = '<div class="tableRow">Последние измерения веса: &nbsp &nbsp'+we+'</div>';
+		tableDiv.innerHTML += '<div class="tableRow"><div class="lineNumDiv">Секц.</div><div class="positionDiv">Внешние</div><div class="positionDiv">Внутренние</div></div>';
 		for(var sec=1; sec<11; sec++){
 			rowHTML='<div class="tableRow">';
 			rowHTML += '<div class="lineNumDiv">'+sec+'</div>';
@@ -161,28 +164,41 @@ function printCell(sec, pos){
 	var action = 0;
 	var fontColor = 'black';
 	var textDecoration = 'none';
+	var corr_time_ago = '';
+	var blink_style = '';
 	var moldHTML = '<div class="moldSubCell usable" onclick="kostil(' + sec + ',' + pos + ');customWindow.show(moldSelectorData)">-</div>';
 	
 	if(lineState[sec]){
 		if(lineState[sec][pos]){
 			flawHTML = 'Норма';
 			action=0;
+			
 			for(var flaw in lineState[sec][pos].flaw){
+				corr_time_ago = '';
+				blink_style = '';
+				if (lineState[sec][pos].flaw[flaw].flaw_author == 'SFM' ) blink_style = 'blink-2';
 				if ((lineState[sec][pos].flaw[flaw].action * 1) > 1) cellFlawPart += lineState[sec][pos].flaw[flaw].flaw_part * 1;
 				if(action<(lineState[sec][pos].flaw[flaw].action * 1)) action = lineState[sec][pos].flaw[flaw].action * 1;
 				if(flawHTML=='Норма') flawHTML = '';
 				if(userType == 'OTK') authMinHeight = '2.3';
 				else authMinHeight = '0';
 				if(!lineState[sec][pos].flaw[flaw].corrective_action) textDecoration = 'none';
-				else textDecoration = 'line-through';
-				flawHTML += '<div title="' + SFM_actions[lineState[sec][pos].flaw[flaw].corrective_action] + '" style="min-height:'+authMinHeight+'em;text-decoration:'+textDecoration+'">'+defects[lineState[sec][pos].flaw[flaw].flaw_type].title;
+				else {
+					textDecoration = 'line-through';
+					if (moment().diff(moment(lineState[sec][pos].flaw[flaw].corrective_date), 'minutes')>59) corr_time_ago = ' ('+ moment().diff(moment(lineState[sec][pos].flaw[flaw].corrective_date), 'hours') + ' ч. назад)';
+					else corr_time_ago = ' ('+ moment().diff(moment(lineState[sec][pos].flaw[flaw].corrective_date), 'minutes') + ' мин. назад)';
+				}
+				flawHTML += '<div class="'+blink_style+'" title="' + SFM_actions[lineState[sec][pos].flaw[flaw].corrective_action] + '"  style="min-height:'+authMinHeight+'em;text-decoration:'+textDecoration+'"> '+ corr_time_ago+'&nbsp'+defects[lineState[sec][pos].flaw[flaw].flaw_type].title;
 				if (action > 1) flawHTML += ", " + normF(lineState[sec][pos].flaw[flaw].flaw_part, 2) + "% ";
+				if (lineState[sec][pos].flaw[flaw].flaw_author == 'SFM' && userType=='OTK')flawHTML += '<input style="float:right" type="button" value="Да, это брак" onclick="acceptFlaw('+flaw+')">';
 				if(userType == 'OTK') flawHTML += '<input style="float:right" type="button" value="X" onclick="closeFlaw('+flaw+')">';
+				
 				if(userType == 'SFM') flawHTML += '[<a href="javascript:showCorrectiveSelector(' + flaw + ', \'Устранить: ' + defects[lineState[sec][pos].flaw[flaw].flaw_type].title + '\')">Устранить</a>]';
 				flawHTML += '</div>';
 			}
 			if(action == 3) fontColor = 'white';
 			if(userType == 'OTK') flawHTML += '<div  style=""><input type="button" value="Добавить брак" onclick="createFlaw(' + lineState[sec][pos].moldRecId + ')"></div>';
+			else flawHTML += '<div  style=""><input type="button" value="Сообщить о возможном браке" onclick="createFlaw(' + lineState[sec][pos].moldRecId + ')"></div>';
 			
 			styleStr = 'background-color:'+corrective_actions[action].color+';color:'+fontColor;
 			if (cellFlawPart>0) moldHTML += '<br>'+'<span style="font-size:0.7em;">Брак по ячейке: ' + cellFlawPart + '%';
@@ -457,6 +473,8 @@ function createFlaw(moldId){
 			newFlaw.flaw_part = validateFloatInput(el('fPart').value);
 			newFlaw.parameter_value = el('fParameter').value;
 			newFlaw.comment = el('fComment').value;
+			//alert(userType);
+			newFlaw.userType = userType;
 			addFlaw(newFlaw);
 			modalWindow.hide();
 		}

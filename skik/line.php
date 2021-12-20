@@ -56,7 +56,8 @@
 							t2.comment,
 							t2.corrective_action,
 							t2.corrective_date,
-							t2.corrective_comment
+							t2.corrective_comment,
+							t2.flaw_author
 						FROM molds AS t1 
 						LEFT JOIN 
 							 flaw AS t2 
@@ -163,6 +164,7 @@
 				$stateArray[$sec][$pos]['flaw'][$flawRecId]['corrective_action'] = $cell['corrective_action'];
 				$stateArray[$sec][$pos]['flaw'][$flawRecId]['corrective_date'] = $cell['corrective_date'];
 				$stateArray[$sec][$pos]['flaw'][$flawRecId]['corrective_comment'] = $cell['corrective_comment'];
+				$stateArray[$sec][$pos]['flaw'][$flawRecId]['flaw_author'] = $cell['flaw_author'];
 			}
 		}
 	}
