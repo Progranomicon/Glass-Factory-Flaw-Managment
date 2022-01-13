@@ -523,7 +523,7 @@ function showColumns(){
             title: {
                 text: '%'
             },
-			plotLines: [{
+			plotLines: [/*{
                 color: '#CC3300',
                 width: 2,
                 value: allowCriticalFlaw,
@@ -568,7 +568,7 @@ function showColumns(){
                     align: 'left',
                     x: 10
                 }
-            }]
+            }*/]
         },
         tooltip: {
         },

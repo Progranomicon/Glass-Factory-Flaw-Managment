@@ -31,13 +31,17 @@ body{
 
 .blink-1 {
 	border:10px solid red;
-  animation-name: blink;
+	color:white;
+	background-color:blue;
+	animation-name: blink;
   animation-timing-function: linear;
-  animation-duration: 1s;
+  animation-duration: 2s;
   animation-iteration-count: infinite;
 }
 .blink-2 {
 	border:10px solid black;
+	background-color:blue;
+	color:white;
   animation-name: blink;
   animation-timing-function: linear;
   animation-duration: 0.3s;

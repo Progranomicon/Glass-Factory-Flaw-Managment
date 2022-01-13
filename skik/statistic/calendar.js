@@ -1,4 +1,4 @@
-var calendarHtml = '<div id="calendar"> <div style="height:300px;"> <div id="daysBlock" class="floatLeft" style="width:250px;"> </div> <div id="monthsBlock" class="floatLeft" style="width:150px;"> </div> <div id="yearsBlock" class="floatLeft" style="width:70px;"> </div>  </div> <hr>Время<br><div> <select id="hourSelector" onchange="tempDate.hours(parseInt(this.value));updateCal();"> </select> : <select id="minuteSelector" onchange="tempDate.minutes(parseInt(this.value));updateCal();"> </select> </div> <div>Выбираемая дата:<div id="dateToApply"> </div> <input type="button" value="Ок" onclick="ok();"> </div> </div>';
+var calendarHtml = '<div id="calendar"> <div style="height:300px;"> <div id="daysBlock" class="floatLeft" style="width:250px;"> </div> <div id="monthsBlock" class="floatLeft" style="width:150px;"> </div> <div id="yearsBlock" class="floatLeft" style="width:140px;"> </div>  </div> <hr>Время<br><div> <select id="hourSelector" onchange="tempDate.hours(parseInt(this.value));updateCal();"> </select> : <select id="minuteSelector" onchange="tempDate.minutes(parseInt(this.value));updateCal();"> </select> </div> <div>Выбираемая дата:<div id="dateToApply"> </div> <input type="button" value="Ок" onclick="ok();"> </div> </div>';
 var tempDate;
 
 function getCalHtml(string_dateVarName){
@@ -25,7 +25,7 @@ function updateCal(){
 	}
 	el('monthsBlock').innerHTML=tempHTML;
 	tempHTML="";
-	for(i=2014;i<=2019;i++){
+	for(i=2021;i<=2030;i++){
 		if (i==tempDate.years()) elemClass="dateSelectorElem dateSelectorElemSelected";
 		else elemClass="dateSelectorElem";
 		tempHTML+='<div class="floatLeft dateElemYear '+elemClass+'" onclick="tempDate.years('+i+');updateCal();">'+i+"</div>";
