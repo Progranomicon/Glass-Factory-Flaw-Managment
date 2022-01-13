@@ -30,12 +30,14 @@ body{
 
 
 .blink-1 {
+	border:10px solid red;
   animation-name: blink;
   animation-timing-function: linear;
   animation-duration: 1s;
   animation-iteration-count: infinite;
 }
 .blink-2 {
+	border:10px solid black;
   animation-name: blink;
   animation-timing-function: linear;
   animation-duration: 0.3s;
@@ -43,6 +45,6 @@ body{
 }
 @keyframes blink {
   50% {
-    opacity: 0;
+    opacity: 0.1;
   }
 }
