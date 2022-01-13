@@ -156,6 +156,22 @@ function mInspection(){
 	}
 	
 }
+function getFlawStartAgo(flaw){
+	var ret = "(Уже Х ч.)";
+			if (moment().diff(moment(flaw.date_start), 'minutes')>59) ret = ' (Уже '+ moment().diff(moment(flaw.date_start), 'hours') + ' ч.)';
+			else ret = '('+ moment().diff(moment(flaw.date_start), 'minutes') + ' мин.)';
+	return ret;
+	
+}
+function getCorrTimeAgo(flaw){
+	var ret = "(Не устранено)";
+			if(flaw.corrective_action){
+				if (moment().diff(moment(flaw.corrective_date), 'minutes')>59) ret = ' (Устранено '+ moment().diff(moment(flaw.corrective_date), 'hours') + ' ч. назад)';
+				else ret = ' (Устранено '+ moment().diff(moment(flaw.corrective_date), 'minutes') + ' мин. назад)';
+			}
+	return ret;
+	
+}
 function printCell(sec, pos){
 	var cellFlawPart = 0;
 	var flawHTML = '-';
@@ -185,10 +201,8 @@ function printCell(sec, pos){
 				if(!lineState[sec][pos].flaw[flaw].corrective_action) textDecoration = 'none';
 				else {
 					textDecoration = 'line-through';
-					if (moment().diff(moment(lineState[sec][pos].flaw[flaw].corrective_date), 'minutes')>59) corr_time_ago = ' ('+ moment().diff(moment(lineState[sec][pos].flaw[flaw].corrective_date), 'hours') + ' ч. назад)';
-					else corr_time_ago = ' ('+ moment().diff(moment(lineState[sec][pos].flaw[flaw].corrective_date), 'minutes') + ' мин. назад)';
 				}
-				flawHTML += '<div class="'+blink_style+'" title="' + SFM_actions[lineState[sec][pos].flaw[flaw].corrective_action] + '"  style="min-height:'+authMinHeight+'em;text-decoration:'+textDecoration+'"> '+ corr_time_ago+'&nbsp'+defects[lineState[sec][pos].flaw[flaw].flaw_type].title;
+				flawHTML += '<div class="'+blink_style+'" title="' + SFM_actions[lineState[sec][pos].flaw[flaw].corrective_action] + '"  style="min-height:'+authMinHeight+'em;text-decoration:'+textDecoration+'"> ' +getFlawStartAgo(lineState[sec][pos].flaw[flaw]) + getCorrTimeAgo(lineState[sec][pos].flaw[flaw])+'&nbsp'+defects[lineState[sec][pos].flaw[flaw].flaw_type].title;
 				if (action > 1) flawHTML += ", " + normF(lineState[sec][pos].flaw[flaw].flaw_part, 2) + "% ";
 				if (lineState[sec][pos].flaw[flaw].flaw_author == 'SFM' && userType=='OTK')flawHTML += '<input style="float:right" type="button" value="Да, это брак" onclick="acceptFlaw('+flaw+')">';
 				if(userType == 'OTK') flawHTML += '<input style="float:right" type="button" value="X" onclick="closeFlaw('+flaw+')">';
@@ -198,7 +212,7 @@ function printCell(sec, pos){
 			}
 			if(action == 3) fontColor = 'white';
 			if(userType == 'OTK') flawHTML += '<div  style=""><input type="button" value="Добавить брак" onclick="createFlaw(' + lineState[sec][pos].moldRecId + ')"></div>';
-			else flawHTML += '<div  style=""><input type="button" value="Сообщить о возможном браке" onclick="createFlaw(' + lineState[sec][pos].moldRecId + ')"></div>';
+			else flawHTML += '<div  style=""><input type="button" value="Сообщить о браке" onclick="createFlaw(' + lineState[sec][pos].moldRecId + ')"></div>';
 			
 			styleStr = 'background-color:'+corrective_actions[action].color+';color:'+fontColor;
 			if (cellFlawPart>0) moldHTML += '<br>'+'<span style="font-size:0.7em;">Брак по ячейке: ' + cellFlawPart + '%';
