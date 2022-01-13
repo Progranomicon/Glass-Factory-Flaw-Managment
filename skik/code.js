@@ -157,17 +157,17 @@ function mInspection(){
 	
 }
 function getFlawStartAgo(flaw){
-	var ret = "(Уже Х ч.)";
-			if (moment().diff(moment(flaw.date_start), 'minutes')>59) ret = ' (Уже '+ moment().diff(moment(flaw.date_start), 'hours') + ' ч.)';
-			else ret = '('+ moment().diff(moment(flaw.date_start), 'minutes') + ' мин.)';
+	var ret = "(Х ч.)";
+			if (moment().add(1, 'hours').diff(moment(flaw.date_start), 'minutes')>59) ret = ' ('+ moment().add(1, 'hours').diff(moment(flaw.date_start), 'hours') + ' ч.)';
+			else ret = '('+ moment().add(1, 'hours').diff(moment(flaw.date_start), 'minutes') + ' мин.)';
 	return ret;
 	
 }
 function getCorrTimeAgo(flaw){
 	var ret = "(Не устранено)";
 			if(flaw.corrective_action){
-				if (moment().diff(moment(flaw.corrective_date), 'minutes')>59) ret = ' (Устранено '+ moment().diff(moment(flaw.corrective_date), 'hours') + ' ч. назад)';
-				else ret = ' (Устранено '+ moment().diff(moment(flaw.corrective_date), 'minutes') + ' мин. назад)';
+				if (moment().add(1, 'hours').diff(moment(flaw.corrective_date), 'minutes')>59) ret = ' (Устранено '+ moment().add(1, 'hours').diff(moment(flaw.corrective_date), 'hours') + ' ч. назад)';
+				else ret = ' (Устранено '+ moment().add(1, 'hours').diff(moment(flaw.corrective_date), 'minutes') + ' мин. назад)';
 			}
 	return ret;
 	
