@@ -28,6 +28,9 @@ function updateInterface(){
 		case 4:
 			newTableReport();
 		break;
+		case 5:
+			weightsTableReport();
+		break;
 	}
 }
 function oldFlawReport(){
@@ -87,6 +90,56 @@ function newTableReport(){
 	//alert("Готово");
 	
 }
+function weightsTableReport(){
+	el('statsDiv').innerHTML = '<h2 style="page-break-before:always">Взвешивания</h2></div><div id="newRepData"></div>';
+	el('report_type').innerHTML = 'Отчет по весам (таблица)';
+	var resultHTML;
+	
+	//resultHTML = '<table><tr><th>Время</th><th>Параметр</th><th>Значение параметра</th><th>% брака</th><th>примечание</th><th>Способ коррекции</th></tr>';
+	
+	
+	$.ajax('wraper.php',{type:"GET", data:{task:"getWeightsStats", period:currentPeriod},success:function f(data){
+		//log(data);
+		/*stats = $.parseJSON('{'+data+'}');
+		stats = stats.lineState;
+		machineIterator(function(){
+			var startDiff;
+			var intersection;
+			var flawLength;
+			var oddEven=1;
+			var flawDateStart, flawDateEnd, moldDateStart, moldDateEnd;
+			for(var moldId in this){
+				for(var flawId in this[moldId].flaw){
+						
+						flawData = this[moldId].flaw[flawId];
+						//console.log(flawData);
+						flawDateStart = moment(flawData.date_start);
+						if(flawData.date_end == null) flawDateEnd = moment();
+						else flawDateEnd = moment(flawData.date_end);
+						if (flawDateStart.isBetween(dateFrom, dateTo) || flawDateEnd.isBetween(dateFrom, dateTo)){ 
+								if(oddEven == 1 ) {
+									resultHTML +='<tr class=even>';
+									oddEven = 0;
+								}
+								else {
+									resultHTML +='<tr class=odd>';
+									oddEven = 1;
+								}
+								resultHTML += '<td>' + flawData.date_start + ' - ';
+								if (flawData.date_end) resultHTML += flawData.date_end +  '</td>';
+								else resultHTML += 'не устранен</td>';
+								resultHTML += '<td>' + defects[flawData.flaw_type].title + '</td><td>' + flawData.parameter_value + '</td><td>' + flawData.flaw_part + '%</td><td>' + flawData.comment + '</td>';
+								if(flawData.corrective_action) 	resultHTML += '<td>' + SFM_actions[flawData.corrective_action] + '</td></tr>';
+								else resultHTML += '<td>Ожидает коррекции</td></tr>';
+						}
+				}
+			}
+			
+		},stats);
+		resultHTML+='</table>';*/
+		el('statsDiv').innerHTML += data;
+	}, error:error_handler});
+}
 function moldsReport(){
 	el('statsDiv').innerHTML = '<h2 style="page-break-before:always">Брак в целом</h2><div id="mainGraphGist" class="halfScreenGist"></div><div id="mainGraphCritGist" class="halfScreenGist"></div><div style="page-break-before:always" id="mainGraph"></div><div id="mainStat"></div><h2 style="page-break-before:always">Брак по типу</h2><div id="flawByTypeGist"></div><div id="flawByType"></div><br><div id="flawTypes"></div><h2 style="page-break-before:always">Брак по формам</h2><div id="flawByMoldGist" ></div><div id="flawByMold"></div><br><div id="usedMolds"></div><div id="moldsData"></div>';
 	el('report_type').innerHTML = 'Отчет по формам';
@@ -138,6 +191,7 @@ function showRepTypeSelector(){
 		wDiv.innerHTML += '<div class="usable" onclick="setRepType(2)">Отчет по формам</div>';
 		wDiv.innerHTML += '<div class="usable" onclick="setRepType(3)">Отчет по простоям</div>';
 		wDiv.innerHTML += '<div class="usable" onclick="setRepType(4)">Отчет по бракам (таблица)</div>';
+		wDiv.innerHTML += '<div class="usable" onclick="setRepType(5)">Отчет по весам (таблица)</div>';
 		contentDiv.appendChild(wDiv);
 	});
 }

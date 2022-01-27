@@ -19,10 +19,12 @@ function CustomWindow(){
 		frameDiv.style.backgroundColor = '#FFF';
 		frameDiv.style.border = '1px solid #000';
 		frameDiv.style.boxShadow = '5px 5px 10px 3px #999';
-		frameDiv.style.top = data.view.top;
-		frameDiv.style.left = data.view.left;
+		frameDiv.style.top = data.view.top + "px";
+		frameDiv.style.left = data.view.left + "px";
 		frameDiv.style.display ='block';
 		frameDiv.style.padding = '5px';
+		//frameDiv.style.position.top = '200px';
+		
 		
 		headerDiv = document.createElement('DIV');
 		headerDiv.innerHTML = '<b>'+data.view.headerText+'</b>';

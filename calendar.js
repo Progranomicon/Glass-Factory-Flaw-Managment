@@ -3,7 +3,7 @@ function calendar(_date, left, top, callback){
 		var left = left||100;
 		var top = top||100;
 		var calendarHtml = '<div id="calendar"><div id="calendarHeader">Выбор даты</div> <div style="height:300px;"> <div id="daysBlock" class="floatLeft" style="width:250px;"> </div> <div id="monthsBlock" class="floatLeft" style="width:150px;"> </div> <div id="yearsBlock" class="floatLeft" style="width:140px;"> </div>  </div> <hr>Время<br><div> <select id="hourSelector"> </select> : <select id="minuteSelector"> </select> </div> <div>Выбираемая дата:<div id="dateToApply"> </div> <input id="okButton" type="button" value="Ок"> <input id="closeButton" type="button" value="Отменить"></div> </div>';
-		var calendarCSS='.floatLeft{ float:left; } #calendarHeader{font-size:24px; color:white;} .dateSelectorElem{ padding:5px; border:1px dotted gray; margin:5px; border-radius: 3px; color:#fff; background-color:#336699 ;box-shadow: 3px 3px 1px 0px #000000;  border-color:white; } .dateSelectorElem:hover{margin:8px 2px 2px 8px; padding:5px; box-shadow: 1px 1px 0px 0px #000000; cursor:pointer; } .dateSelectorElemSelected{ box-shadow: -7px -7px 0px 0px #000000; background-color:#ff3333; margin:8px 2px 2px 8px; box-shadow:none; } .dateElemDay{ width: 20px; } .dateElemMonth{ width: 30px; } .dateElemYear{ width: 35px; } #dateToApply{ font-size:1.5em; font-family:\'Helvetica\'; } .calendarDiv{ text-align:left; position:absolute; z-index:20; padding:10px; background-color:white; border: 1px solid black; border-radius: 5px; box-shadow:5px 5px 10px 3px #999; background-color:#3399cc; }';
+		var calendarCSS='.floatLeft{ float:left; } #calendarHeader{font-size:24px; color:white;} .dateSelectorElem{ padding:5px; border:1px dotted gray; margin:5px; border-radius: 3px; color:#fff; background-color:#336699 ;box-shadow: 3px 3px 1px 0px #000000;  border-color:white; } .dateSelectorElem:hover{margin:8px 2px 2px 8px; padding:5px; box-shadow: 1px 1px 0px 0px #000000; cursor:pointer; } .dateSelectorElemSelected{ box-shadow: -7px -7px 0px 0px #000000; background-color:#ff3333; margin:8px 2px 2px 8px; box-shadow:none; } .dateElemDay{ width: 20px; } .dateElemMonth{ width: 30px; } .dateElemYear{ width: 35px; } #dateToApply{ font-size:1.5em; font-family:\'Helvetica\'; } .calendarDiv{ text-align:left; position:absolute; z-index:20; top:100px;padding:10px; background-color:white; border: 1px solid black; border-radius: 5px; box-shadow:5px 5px 10px 3px #999; background-color:#3399cc; }';
 		var months={};
 		var calendarDiv;
 		months[1]={"name":"янв","days":31};
@@ -21,8 +21,8 @@ function calendar(_date, left, top, callback){
 		
 		this.show=function(){
 			calendarDiv = document.createElement('DIV');
-			calendarDiv.style.left = left;
-			calendarDiv.style.top = top;
+			calendarDiv.style.left = left + "px";
+			calendarDiv.style.top = top + "px";
 			calendarDiv.innerHTML='<style type="text/css">'+calendarCSS+'</style>';
 			calendarDiv.innerHTML+=calendarHtml;
 			calendarDiv.className = 'calendarDiv';

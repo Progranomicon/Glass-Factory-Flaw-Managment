@@ -21,8 +21,8 @@ function ModalWindow(){
 		frameDiv.style.backgroundColor = '#FFF';
 		frameDiv.style.border = '1px solid #000';
 		frameDiv.style.boxShadow = '5px 5px 10px 3px #999';
-		frameDiv.style.top = 100;
-		frameDiv.style.left = 100;
+		frameDiv.style.top = 100 + "px";
+		frameDiv.style.left = 100 + "px";
 		frameDiv.style.display ='block';
 		frameDiv.style.padding = '5px';
 		

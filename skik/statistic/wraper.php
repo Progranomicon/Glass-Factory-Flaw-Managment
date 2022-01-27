@@ -8,6 +8,9 @@
 	if ($task=='getPeriods'){
 		getPeriods($_GET['production']);
 	}
+	if ($task=='getWeightsStats'){
+		getWeightsStats($_GET['period']);
+	}
 	if ($task=='getStats'){
 		echo getStats($_GET['period']);
 	}
@@ -35,7 +38,7 @@
 					$periods[$row['id']]['date_end']  = date("Y-m-d H:i:s"); // use serverTime
 				}
 			}
-			//echo ("������<br>");
+			//echo ("Начало<br>");
 			echo json_encode($periods);
 		}else{
 			 echo '{"1":{"line":"0", "date_start":"1900-01-01 00:00:00", "kis":"1", "molds":"1", "date_end":"1900-01-01 00:00:01"}}';
@@ -51,6 +54,16 @@
 		$path = $_SERVER['DOCUMENT_ROOT']."/skik/states/".$period."full.json";
 		if(!file_exists($path)) dumpFullState($period);
 		return file_get_contents($path);
+	}
+	function getWeightsStats($period){
+		$res = mysql_query("SELECT * FROM `weights` WHERE `POL_id`='".$period."'");
+		$returnal = "<table><tr><th>Время взвешивания</th><th>Вес</th></tr>";
+		while($row = mysql_fetch_assoc($res)){
+			$returnal .= "<tr><td>".$row['date']."</td><td>".$row['weight']."</td></tr>";
+		}
+		$returnal .= "</table>";
+		echo $returnal;
+		
 	}
 	function getMoldsStats($periodId){
 		$answer = array();
