@@ -56,10 +56,10 @@
 		return file_get_contents($path);
 	}
 	function getWeightsStats($period){
-		$res = mysql_query("SELECT * FROM `weights` WHERE `POL_id`='".$period."'");
-		$returnal = "<table><tr><th>Время взвешивания</th><th>Вес</th></tr>";
+		$res = mysql_query("SELECT DAY(date) as dayw, month(date) as monthw, YEAR(date) as yearw, time(date) as timew, weight FROM `weights` WHERE `POL_id`='".$period."'");
+		$returnal = "<table border><tr><th>Момент взвешивания</th><th>Вес, г.</th></tr>";
 		while($row = mysql_fetch_assoc($res)){
-			$returnal .= "<tr><td>".$row['date']."</td><td>".$row['weight']."</td></tr>";
+			$returnal .= "<tr><td>".$row['dayw'].".".$row['monthw'].".".$row['yearw']." ".$row['timew']."</td><td>".$row['weight']."</td></tr>";
 		}
 		$returnal .= "</table>";
 		echo $returnal;
