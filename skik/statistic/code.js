@@ -38,23 +38,54 @@ function oldFlawReport(){
 	el('statsDiv').innerHTML = '<h2 style="page-break-before:always">Брак в целом</h2><div id="mainGraphGist" class="halfScreenGist"></div><div id="mainGraphCritGist" class="halfScreenGist"></div><div style="page-break-before:always" id="mainGraph"></div><div id="mainStat"></div><h2 style="page-break-before:always">Брак по типу</h2><div id="flawByTypeGist"></div><div id="flawByType"></div><br><div id="flawTypes"></div><h2 style="page-break-before:always">Брак по формам</h2><div id="flawByMoldGist" ></div><div id="flawByMold"></div><br><div id="usedMolds"></div><div id="moldsData"></div>';
 	processStats();
 }
+function doFilter(lineData){
+	
+	var filtres = [];
+
+	machineIterator(function(p){
+	
+		for(var moldId in this){
+			
+			//console.log(f);
+			
+			for(var flawId in this[moldId].flaw){
+				
+				//console.log(flawId);
+				
+				//if(!f[flawId].flaw_type) f.push(f[flawId].flaw_type);
+				
+				
+			}
+			
+		}
+		
+	}(filtres), lineData);
+	
+	return filtres;
+	
+}
 function newTableReport(){
 	el('statsDiv').innerHTML = '<h2 style="page-break-before:always">Брак по всем внесенным данным  актуальным на период</h2></div><div id="newRepData"></div>';
 	el('report_type').innerHTML = 'Отчет по бракам (таблица)';
+	
 	var resultHTML;
 	
-	resultHTML = '<table><tr><th>Время</th><th>Параметр</th><th>Значение параметра</th><th>% брака</th><th>примечание</th><th>Способ коррекции</th></tr>';
-	
+	resultHTML = '<table border><tr><th>Время</th><th>Параметр</th><th>Значение параметра</th><th>% брака</th><th>Способ устранения</th><th>примечание</th><th>Способ коррекции</th></tr>';
 	
 	$.ajax('wraper.php',{type:"GET", data:{task:"getStats", period:currentPeriod},success:function f(data){
 		//log(data);
+		
 		stats = $.parseJSON('{'+data+'}');
+		
 		stats = stats.lineState;
+		
+		//var filter = doFilter(stats);
+		//alert(filter);
+		var oddEven=1;
 		machineIterator(function(){
 			var startDiff;
 			var intersection;
 			var flawLength;
-			var oddEven=1;
 			var flawDateStart, flawDateEnd, moldDateStart, moldDateEnd;
 			for(var moldId in this){
 				for(var flawId in this[moldId].flaw){
@@ -73,10 +104,10 @@ function newTableReport(){
 									resultHTML +='<tr class=odd>';
 									oddEven = 1;
 								}
-								resultHTML += '<td>' + flawData.date_start + ' - ';
-								if (flawData.date_end) resultHTML += flawData.date_end +  '</td>';
+								resultHTML += '<td>' + moment(flawData.date_start).format("DD.MM.YY, H:mm") + ' - ';
+								if (flawData.date_end) resultHTML += moment(flawData.date_end).format("DD.MM.YY, H:mm") + '</td>';
 								else resultHTML += 'не устранен</td>';
-								resultHTML += '<td>' + defects[flawData.flaw_type].title + '</td><td>' + flawData.parameter_value + '</td><td>' + flawData.flaw_part + '%</td><td>' + flawData.comment + '</td>';
+						resultHTML += '<td>' + defects[flawData.flaw_type].title + '</td><td>' + flawData.parameter_value + '</td><td>' + flawData.flaw_part + '%</td><td>' + corrective_actions[flawData.action].title + '</td><td>' + flawData.comment + '</td>';
 								if(flawData.corrective_action) 	resultHTML += '<td>' + SFM_actions[flawData.corrective_action] + '</td></tr>';
 								else resultHTML += '<td>Ожидает коррекции</td></tr>';
 						}
@@ -96,47 +127,10 @@ function weightsTableReport(){
 	var resultHTML;
 	
 	//resultHTML = '<table><tr><th>Время</th><th>Параметр</th><th>Значение параметра</th><th>% брака</th><th>примечание</th><th>Способ коррекции</th></tr>';
-	
-	
-	$.ajax('wraper.php',{type:"GET", data:{task:"getWeightsStats", period:currentPeriod},success:function f(data){
+	//Alert(dateFrom.format()+"  "+dateTo.format());
+
+	$.ajax('wraper.php',{type:"GET", data:{task:"getWeightsStats", period:currentPeriod, dateFrom:dateFrom.format("YYYY-MM-DD HH:mm"), dateTo:dateTo.format("YYYY-MM-DD HH:mm")},success:function f(data){
 		//log(data);
-		/*stats = $.parseJSON('{'+data+'}');
-		stats = stats.lineState;
-		machineIterator(function(){
-			var startDiff;
-			var intersection;
-			var flawLength;
-			var oddEven=1;
-			var flawDateStart, flawDateEnd, moldDateStart, moldDateEnd;
-			for(var moldId in this){
-				for(var flawId in this[moldId].flaw){
-						
-						flawData = this[moldId].flaw[flawId];
-						//console.log(flawData);
-						flawDateStart = moment(flawData.date_start);
-						if(flawData.date_end == null) flawDateEnd = moment();
-						else flawDateEnd = moment(flawData.date_end);
-						if (flawDateStart.isBetween(dateFrom, dateTo) || flawDateEnd.isBetween(dateFrom, dateTo)){ 
-								if(oddEven == 1 ) {
-									resultHTML +='<tr class=even>';
-									oddEven = 0;
-								}
-								else {
-									resultHTML +='<tr class=odd>';
-									oddEven = 1;
-								}
-								resultHTML += '<td>' + flawData.date_start + ' - ';
-								if (flawData.date_end) resultHTML += flawData.date_end +  '</td>';
-								else resultHTML += 'не устранен</td>';
-								resultHTML += '<td>' + defects[flawData.flaw_type].title + '</td><td>' + flawData.parameter_value + '</td><td>' + flawData.flaw_part + '%</td><td>' + flawData.comment + '</td>';
-								if(flawData.corrective_action) 	resultHTML += '<td>' + SFM_actions[flawData.corrective_action] + '</td></tr>';
-								else resultHTML += '<td>Ожидает коррекции</td></tr>';
-						}
-				}
-			}
-			
-		},stats);
-		resultHTML+='</table>';*/
 		el('statsDiv').innerHTML += data;
 	}, error:error_handler});
 }

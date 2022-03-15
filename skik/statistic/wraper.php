@@ -9,7 +9,7 @@
 		getPeriods($_GET['production']);
 	}
 	if ($task=='getWeightsStats'){
-		getWeightsStats($_GET['period']);
+		getWeightsStats($_GET['period'], $_GET['dateFrom'], $_GET['dateTo']);
 	}
 	if ($task=='getStats'){
 		echo getStats($_GET['period']);
@@ -55,8 +55,8 @@
 		if(!file_exists($path)) dumpFullState($period);
 		return file_get_contents($path);
 	}
-	function getWeightsStats($period){
-		$res = mysql_query("SELECT DAY(date) as dayw, month(date) as monthw, YEAR(date) as yearw, time(date) as timew, weight FROM `weights` WHERE `POL_id`='".$period."'");
+	function getWeightsStats($period, $dateFrom, $dateTo){
+		$res = mysql_query("SELECT DAY(date) as dayw, month(date) as monthw, YEAR(date) as yearw, time(date) as timew, weight FROM `weights` WHERE `POL_id`='".$period."' and (date between '".$dateFrom."' and '".$dateTo."')");
 		$returnal = "<table border><tr><th>Момент взвешивания</th><th>Вес, г.</th></tr>";
 		while($row = mysql_fetch_assoc($res)){
 			$returnal .= "<tr><td>".$row['dayw'].".".$row['monthw'].".".$row['yearw']." ".$row['timew']."</td><td>".$row['weight']."</td></tr>";
