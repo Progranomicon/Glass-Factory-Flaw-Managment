@@ -122,7 +122,7 @@ function newTableReport(){
 	
 }
 function weightsTableReport(){
-	el('statsDiv').innerHTML = '<h2 style="page-break-before:always">Взвешивания</h2></div><div id="newRepData"></div>';
+	el('statsDiv').innerHTML = '<h2 style="page-break-before:always">Взвешивания</h2></div><div id="wGraph"></div><div id="newRepData"></div>';
 	el('report_type').innerHTML = 'Отчет по весам (таблица)';
 	var resultHTML;
 	
@@ -133,6 +133,43 @@ function weightsTableReport(){
 		//log(data);
 		el('statsDiv').innerHTML += data;
 	}, error:error_handler});
+	
+	$.ajax('weights.php',{type:"GET", data:{period:currentPeriod, dateFrom:dateFrom.format("YYYY-MM-DD HH:mm"), dateTo:dateTo.format("YYYY-MM-DD HH:mm")},success:function f(data){
+		var resp=$.parseJSON(data);
+
+		var yAxis = {
+			title: {
+				text: "граммы"
+			}
+		};
+		$('#wGraph').highcharts({
+        title: {
+            text: "Вес бутылки",
+            x: -20 //center
+        },
+        subtitle: {
+            text: '',
+            x: -20
+        },
+        xAxis: {
+            categories: resp.dates
+        },
+        yAxis: yAxis,
+        tooltip: {
+            valueSuffix: " г"
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+        },
+        series: [{
+            data: resp.weights
+        }]
+    });
+	}, error:error_handler});
+	
 }
 function moldsReport(){
 	el('statsDiv').innerHTML = '<h2 style="page-break-before:always">Брак в целом</h2><div id="mainGraphGist" class="halfScreenGist"></div><div id="mainGraphCritGist" class="halfScreenGist"></div><div style="page-break-before:always" id="mainGraph"></div><div id="mainStat"></div><h2 style="page-break-before:always">Брак по типу</h2><div id="flawByTypeGist"></div><div id="flawByType"></div><br><div id="flawTypes"></div><h2 style="page-break-before:always">Брак по формам</h2><div id="flawByMoldGist" ></div><div id="flawByMold"></div><br><div id="usedMolds"></div><div id="moldsData"></div>';
@@ -179,13 +216,13 @@ function showRepTypeSelector(){
 	modalWindow.show("Тип отчета", function(contentDiv){
 		wDiv = document.createElement('DIV');
 		wDiv.style.cssFloat = "left";
-		wDiv.style.width = "200px";
+		wDiv.style.width = "300px";
 		wDiv.style.textAlign = 'left';
 		wDiv.innerHTML += '<div class="usable" onclick="setRepType(1)">Старый отчет по бракам</div>';
 		wDiv.innerHTML += '<div class="usable" onclick="setRepType(2)">Отчет по формам</div>';
 		wDiv.innerHTML += '<div class="usable" onclick="setRepType(3)">Отчет по простоям</div>';
 		wDiv.innerHTML += '<div class="usable" onclick="setRepType(4)">Отчет по бракам (таблица)</div>';
-		wDiv.innerHTML += '<div class="usable" onclick="setRepType(5)">Отчет по весам (таблица)</div>';
+		wDiv.innerHTML += '<div class="usable" onclick="setRepType(5)">Отчет по весам (График + таблица)</div>';
 		contentDiv.appendChild(wDiv);
 	});
 }
@@ -199,6 +236,7 @@ function setRepType(t){
 		if($('#mainGraphGist').highcharts()) $('#mainGraphGist').highcharts().destroy();
 		if($('#mainGraphCritGist').highcharts()) $('#mainGraphCritGist').highcharts().destroy();
 		if( $('#mainGraph').highcharts()) $('#mainGraph').highcharts().destroy();
+		if( $('#wGraph').highcharts()) $('#wGraph').highcharts().destroy();
 	}
 	clearInterface();
 	reportType = t;
