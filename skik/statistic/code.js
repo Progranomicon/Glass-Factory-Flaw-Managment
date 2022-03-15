@@ -152,6 +152,10 @@ function weightsTableReport(){
             x: -20
         },
         xAxis: {
+			labels:{
+				rotation:270,
+				step:0,
+			},
             categories: resp.dates
         },
         yAxis: yAxis,
