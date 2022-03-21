@@ -2,6 +2,7 @@
 	session_start();
 	require_once "../../conn.php";
 	
+	
 	if (isset($_GET['task'])){
 		if($_GET['task']=='getProduction'){
 			$get_production_query="SELECT id, format_name, glass_color, units_number, boxing FROM productionutf8 WHERE isDeleted='0' ORDER BY id DESC";
