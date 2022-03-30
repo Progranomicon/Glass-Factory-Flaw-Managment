@@ -1,10 +1,10 @@
-//var currentProduction;
 var currentPeriod;
 var dateFrom = moment();
 var dateTo = moment();
 var reportType = 1;
 var moldsHours = {};
 var moldsData = {};
+var filters = {};
 
 function updateInterface(){
 	el('currentProduction').innerHTML = "Не выбрана продукция";
@@ -26,7 +26,8 @@ function updateInterface(){
 			downtimes();
 		break;
 		case 4:
-			newTableReport();
+			getFilters();
+			//newTableReport();
 		break;
 		case 5:
 			weightsTableReport();
@@ -38,39 +39,37 @@ function oldFlawReport(){
 	el('statsDiv').innerHTML = '<h2 style="page-break-before:always">Брак в целом</h2><div id="mainGraphGist" class="halfScreenGist"></div><div id="mainGraphCritGist" class="halfScreenGist"></div><div style="page-break-before:always" id="mainGraph"></div><div id="mainStat"></div><h2 style="page-break-before:always">Брак по типу</h2><div id="flawByTypeGist"></div><div id="flawByType"></div><br><div id="flawTypes"></div><h2 style="page-break-before:always">Брак по формам</h2><div id="flawByMoldGist" ></div><div id="flawByMold"></div><br><div id="usedMolds"></div><div id="moldsData"></div>';
 	processStats();
 }
-function doFilter(lineData){
+function getFilters(){
+	var resultHTML;
 	
-	var filtres = [];
-
-	machineIterator(function(p){
+	resultHTML = '';
 	
-		for(var moldId in this){
-			
-			//console.log(f);
-			
-			for(var flawId in this[moldId].flaw){
-				
-				//console.log(flawId);
-				
-				//if(!f[flawId].flaw_type) f.push(f[flawId].flaw_type);
-				
-				
-			}
-			
-		}
+	$.ajax('wraper.php',{type:"GET", data:{task:"getFilters", period:currentPeriod},success:function f(data){
+		//log(data);
+		filters = $.parseJSON(data);
 		
-	}(filtres), lineData);
+		el('statsDiv').innerHTML = '<h2 style="page-break-before:always">Брак по всем внесенным данным  актуальным на период</h2><div id="filters"></div><br><div id="newRepData"></div>';
 	
-	return filtres;
+		el('report_type').innerHTML = 'Отчет по бракам (таблица)';
+	
+		for(var f in filters){
+		
+			el('filters').innerHTML += '<input type="checkbox" checked id="f'+filters[f]+'">'+defects[filters[f]].title+'</input>';
+
+		}
+		el('filters').innerHTML += '<input type="button" onclick="newTableReport()" value="Фильтровать">';
+		el('filters').innerHTML += '<input type="button" onclick="offAllFilters()" value="Снять все галки">';
+		
+		newTableReport();
+		
+	}, error:error_handler});
 	
 }
 function newTableReport(){
-	el('statsDiv').innerHTML = '<h2 style="page-break-before:always">Брак по всем внесенным данным  актуальным на период</h2></div><div id="newRepData"></div>';
-	el('report_type').innerHTML = 'Отчет по бракам (таблица)';
 	
 	var resultHTML;
 	
-	resultHTML = '<table border><tr><th>Время</th><th>Параметр</th><th>Значение параметра</th><th>% брака</th><th>Способ устранения</th><th>примечание</th><th>Способ коррекции</th></tr>';
+	resultHTML = '<table border><tr><th>Время</th><th>Номер формы</th><th>Параметр</th><th>Значение параметра</th><th>% брака</th><th>Способ устранения</th><th>примечание</th><th>Способ коррекции</th></tr>';
 	
 	$.ajax('wraper.php',{type:"GET", data:{task:"getStats", period:currentPeriod},success:function f(data){
 		//log(data);
@@ -89,7 +88,7 @@ function newTableReport(){
 			var flawDateStart, flawDateEnd, moldDateStart, moldDateEnd;
 			for(var moldId in this){
 				for(var flawId in this[moldId].flaw){
-						
+						if(!el('f'+this[moldId].flaw[flawId].flaw_type).checked) continue;
 						flawData = this[moldId].flaw[flawId];
 						//console.log(flawData);
 						flawDateStart = moment(flawData.date_start);
@@ -107,7 +106,7 @@ function newTableReport(){
 								resultHTML += '<td>' + moment(flawData.date_start).format("DD.MM.YY, H:mm") + ' - ';
 								if (flawData.date_end) resultHTML += moment(flawData.date_end).format("DD.MM.YY, H:mm") + '</td>';
 								else resultHTML += 'не устранен</td>';
-						resultHTML += '<td>' + defects[flawData.flaw_type].title + '</td><td>' + flawData.parameter_value + '</td><td>' + flawData.flaw_part + '%</td><td>' + corrective_actions[flawData.action].title + '</td><td>' + flawData.comment + '</td>';
+						resultHTML += '<td>'+this[moldId].mold+'</td><td>' + defects[flawData.flaw_type].title + '</td><td>' + flawData.parameter_value + '</td><td>' + flawData.flaw_part + '%</td><td>' + corrective_actions[flawData.action].title + '</td><td>' + flawData.comment + '</td>';
 								if(flawData.corrective_action) 	resultHTML += '<td>' + SFM_actions[flawData.corrective_action] + '</td></tr>';
 								else resultHTML += '<td>Ожидает коррекции</td></tr>';
 						}
@@ -116,18 +115,21 @@ function newTableReport(){
 			
 		},stats);
 		resultHTML+='</table>';
-		el('statsDiv').innerHTML += resultHTML;
+		el('newRepData').innerHTML = resultHTML;
 	}, error:error_handler});
 	//alert("Готово");
 	
+}
+function offAllFilters(){
+    for (var i = 0; i < el('filters').childNodes.length; i++) {
+      el('filters').childNodes[i].checked = false;
+    }
+  
 }
 function weightsTableReport(){
 	el('statsDiv').innerHTML = '<h2 style="page-break-before:always">Взвешивания</h2></div><div id="wGraph"></div><div id="newRepData"></div>';
 	el('report_type').innerHTML = 'Отчет по весам (таблица)';
 	var resultHTML;
-	
-	//resultHTML = '<table><tr><th>Время</th><th>Параметр</th><th>Значение параметра</th><th>% брака</th><th>примечание</th><th>Способ коррекции</th></tr>';
-	//Alert(dateFrom.format()+"  "+dateTo.format());
 
 	$.ajax('wraper.php',{type:"GET", data:{task:"getWeightsStats", period:currentPeriod, dateFrom:dateFrom.format("YYYY-MM-DD HH:mm"), dateTo:dateTo.format("YYYY-MM-DD HH:mm")},success:function f(data){
 		//log(data);

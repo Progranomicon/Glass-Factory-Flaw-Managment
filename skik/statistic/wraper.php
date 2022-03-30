@@ -5,6 +5,9 @@
 	$task = '';
 	
 	if($_GET['task']) $task = $_GET['task'];
+	if ($task=='getFilters'){
+		getFilters($_GET['period']);
+	}
 	if ($task=='getPeriods'){
 		getPeriods($_GET['production']);
 	}
@@ -19,6 +22,26 @@
 	}
 	if ($task=='getNewRepData'){
 		echo getNewRepData($_GET['periodId']);
+	}
+	function getFilters($period){
+		$query = "select f.flaw_type
+				from production_on_lines as pol 
+				left join molds m on pol.id = m.POL_id
+				left join flaw f on m.id = f.move_id
+				where pol.id = ".$period." and flaw_type is not null
+				group by f.flaw_type";
+		$res = mysql_query($query);
+		$filters = "[";
+		$zpt = "";
+		if ($res){
+			while($row = mysql_fetch_assoc($res)){
+				$filters.=$zpt.$row['flaw_type'];
+				$zpt = ', ';
+		}
+		
+	}
+	$filters.=']';
+	echo $filters;
 	}
 	function getPeriods($production){
 		$periods = array();
