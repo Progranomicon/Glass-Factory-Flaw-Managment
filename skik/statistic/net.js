@@ -32,7 +32,6 @@ function getStats(){
 	$.ajax('wraper.php',{type:"GET", data:{task:"getStats", period:currentPeriod},success:statsReciever, error:error_handler});
 }
 function statsReciever(jsonStats){
-	//log(jsonStats);
 	stats = $.parseJSON('{'+jsonStats+'}');
 	stats = stats.lineState;
 	processStats();

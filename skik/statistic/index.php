@@ -8,7 +8,7 @@
 	<LINK rel="icon" href="/../favicon.gif" type="image/x-icon">
 	<LINK rel="shortcut icon" href="/../favicon.gif" type="image/x-icon">
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-	<script language="javascript" type="text/javascript" src="../../production.js" charset="utf-8"></script>
+	<!--<script language="javascript" type="text/javascript" src="../../production.js" charset="utf-8"></script>-->
 	<script language="javascript" type="text/javascript" src="../../calendar.js" charset="utf-8"></script>
 	<script language="javascript" type="text/javascript" src="../jquery.js" charset="utf-8"></script>
 	<script language="javascript" type="text/javascript" src="../moment-with-locales.min.js" charset="utf-8"></script>

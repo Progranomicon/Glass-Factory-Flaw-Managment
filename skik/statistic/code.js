@@ -1,7 +1,7 @@
 var currentPeriod;
 var dateFrom = moment();
 var dateTo = moment();
-var reportType = 1;
+var reportType = 4;
 var moldsHours = {};
 var moldsData = {};
 var filters = {};
@@ -25,9 +25,9 @@ function updateInterface(){
 		case 3:
 			downtimes();
 		break;
-		case 4:
+		case 4://newTableReport();
 			getFilters();
-			//newTableReport();
+			
 		break;
 		case 5:
 			weightsTableReport();
@@ -37,7 +37,7 @@ function updateInterface(){
 function oldFlawReport(){
 	el('report_type').innerHTML = 'Старый отчет по бракам';
 	el('statsDiv').innerHTML = '<h2 style="page-break-before:always">Брак в целом</h2><div id="mainGraphGist" class="halfScreenGist"></div><div id="mainGraphCritGist" class="halfScreenGist"></div><div style="page-break-before:always" id="mainGraph"></div><div id="mainStat"></div><h2 style="page-break-before:always">Брак по типу</h2><div id="flawByTypeGist"></div><div id="flawByType"></div><br><div id="flawTypes"></div><h2 style="page-break-before:always">Брак по формам</h2><div id="flawByMoldGist" ></div><div id="flawByMold"></div><br><div id="usedMolds"></div><div id="moldsData"></div>';
-	processStats();
+	getStats();
 }
 function getFilters(){
 	var resultHTML;
@@ -57,7 +57,7 @@ function getFilters(){
 			el('filters').innerHTML += '<input type="checkbox" checked id="f'+filters[f]+'">'+defects[filters[f]].title+'</input>';
 
 		}
-		el('filters').innerHTML += '<input type="button" onclick="newTableReport()" value="Фильтровать">';
+		el('filters').innerHTML += '<br><input type="button" onclick="newTableReport()" value="Фильтровать">';
 		el('filters').innerHTML += '<input type="button" onclick="offAllFilters()" value="Снять все галки">';
 		
 		newTableReport();
@@ -275,7 +275,7 @@ function setPeriod(per){
 	currentPeriod = per;
 	dateFrom = moment(periods[per].date_start);
 	dateTo = moment(periods[per].date_end);
-	getStats();
+	//getStats();
 	clearInterface();
 	updateInterface();
 }
