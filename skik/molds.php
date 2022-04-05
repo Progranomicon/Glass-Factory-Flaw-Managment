@@ -48,6 +48,19 @@
 			$messages[] = 'Ошибка MySQL, код '.$afRows;
 		}
 	}
+	function addComment($flawID, $txt){
+		global $messages;
+		$query = "update factory.flaw set 
+						`comment` =  concat(COALESCE(`comment`,'') , '<br>".$txt."' )
+						where Id=".$flawID;
+		$res = mysql_query($query);
+		$afRows = mysql_affected_rows();
+		if ($afRows>=0){
+			$messages[] = 'Комментарий добавлен';
+		}else{
+			$messages[] = 'Комментарий НЕ добавлен';
+		}
+	}
 	function closeFlaw($fId){
 		global $messages;
 		$query = "UPDATE flaw SET `date_end`= NOW() WHERE `id`='".$fId."'";

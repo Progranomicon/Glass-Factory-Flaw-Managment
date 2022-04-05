@@ -37,6 +37,11 @@
 			addFlaw($_GET['flaw_type'], $_GET['flaw_part'], $_GET['action'], $_GET['comment'], $_GET['parameter_value'], $_GET['moldsList'], $_GET['flaw_author']);
 			dumpLineState($lineState['currentProductionRecId']);
 		}
+		if($_GET['task']=='addComment'){
+		
+			addComment($_GET['flawId'], $_GET['commentText']);
+			dumpLineState($lineState['currentProductionRecId']);
+		}
 		if($_GET['task']=='closeFlaw'){
 			closeFlaw($_GET['id']);
 			dumpLineState($lineState['currentProductionRecId']);

@@ -35,6 +35,10 @@ function unmountAllSFM(id){
 function addFlaw(data){
 	$.ajax('wraper.php',{type:"GET", data:{task:"addFlaw", moldsList:data.moldsIdsList, flaw_type:data.flaw_type, flaw_part:data.flaw_part, parameter_value:data.parameter_value, comment:data.comment, action:data.action, flaw_author:data.userType},success:reciever, error:error_handler});
 }
+function addComment(flawId, txt){
+	$.ajax('wraper.php',{type:"GET", data:{task:"addComment", flawId:flawId, commentText:'<b>'+userType+':</b>'+txt},success:reciever, error:error_handler});
+}
+
 function closeFlaw(id){
 	$.ajax('wraper.php',{type:"GET", data:{task:"closeFlaw", id:id},success:reciever, error:error_handler});
 }

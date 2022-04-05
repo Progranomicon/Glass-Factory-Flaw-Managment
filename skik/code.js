@@ -77,6 +77,25 @@ function lineSelector(contentDiv){
 			contentDiv.appendChild(newElem);
 		}
 }
+function createCom(flawID){ //create Comment, fucking jquery!!!
+		modalWindow.show('Добавить комментарий ', function s(contentDiv){
+	var wDiv = document.createElement('DIV');
+		wDiv.style.cssFloat = "left";
+		wDiv.style.width = "300px";
+		wDiv.style.textAlign = 'left';
+		wDiv.innerHTML += '<input type="text" id="fComment"><br><br>';
+		wDiv.innerHTML += '<input id="newComment" type="button" value="Добавить">'; //onclick="newFlawKostil()"
+		contentDiv.appendChild(wDiv);
+		
+		el('newComment').onclick = function(){
+			addComment(flawID, el('fComment').value);
+			modalWindow.hide();
+		}
+		
+	
+		}
+);
+}
 function productSelector(contentDiv){
 	var inputStr = document.createElement('INPUT');
 	var divInContentDiv = document.createElement('DIV');
@@ -204,8 +223,10 @@ function printCell(sec, pos){
 				}
 				flawHTML += '<div class="'+blink_style+'" title="' + SFM_actions[lineState[sec][pos].flaw[flaw].corrective_action] + '"  style="min-height:'+authMinHeight+'em;text-decoration:'+textDecoration+'"> ' +getFlawStartAgo(lineState[sec][pos].flaw[flaw]) + getCorrTimeAgo(lineState[sec][pos].flaw[flaw])+'&nbsp'+defects[lineState[sec][pos].flaw[flaw].flaw_type].title;
 				if (action > 1) flawHTML += ", " + normF(lineState[sec][pos].flaw[flaw].flaw_part, 2) + "% ";
+				flawHTML += '<input style="float:right" type="button" title="Оставить комментарий" value="&#128172" onclick="createCom('+flaw+')">';
 				if (lineState[sec][pos].flaw[flaw].flaw_author == 'SFM' && userType=='OTK')flawHTML += '<input style="float:right" type="button" value="Да, это брак" onclick="acceptFlaw('+flaw+')">';
-				if(userType == 'OTK') flawHTML += '<input style="float:right" type="button" value="X" onclick="closeFlaw('+flaw+')">';
+				if (lineState[sec][pos].flaw[flaw].comment) flawHTML += '<br>' + lineState[sec][pos].flaw[flaw].comment;
+				if(userType == 'OTK') flawHTML += '<input style="float:right" title="Закрыть брак"  type="button" value="X" onclick="closeFlaw('+flaw+')">';
 				
 				if(userType == 'SFM') flawHTML += '[<a href="javascript:showCorrectiveSelector(' + flaw + ', \'Устранить: ' + defects[lineState[sec][pos].flaw[flaw].flaw_type].title + '\')">Устранить</a>]';
 				flawHTML += '</div>';
@@ -262,7 +283,6 @@ function printPassportCell(sec, pos){
 		}
 	return '<div  class="moldCell usable" onclick="kostil('+sec+','+pos+');customWindow.show(moldSelectorData)">'+moldHTML+'</div><div style="'+styleStr+'" class="flawCell">'+flawHTML+'</div>';
 }
-
 function moldSelector(contentDiv, sec, pos){
 	if(userType == 'OTK'){
 	var container = document.createElement("DIV");
@@ -471,7 +491,7 @@ function createFlaw(moldId){
 		wDiv.innerHTML += '<input type="text" id="fParameter"><br><br>';
 		wDiv.innerHTML += 'Комментарий<br>';
 		wDiv.innerHTML += '<input type="text" id="fComment"><br><br>';
-		wDiv.innerHTML += '<input id="newFlawBtn" type="button" value="Добавить" onclick="newFlawKostil()">';
+		wDiv.innerHTML += '<input id="newFlawBtn" type="button" value="Добавить">'; //onclick="newFlawKostil()"
 		contentDiv.appendChild(wDiv);
 		
 		el('newFlawBtn').onclick = function(){
@@ -486,7 +506,7 @@ function createFlaw(moldId){
 			}
 			newFlaw.flaw_part = validateFloatInput(el('fPart').value);
 			newFlaw.parameter_value = el('fParameter').value;
-			newFlaw.comment = el('fComment').value;
+			newFlaw.comment = '<b>'+userType+':</b>'+el('fComment').value;
 			//alert(userType);
 			newFlaw.userType = userType;
 			addFlaw(newFlaw);
@@ -516,6 +536,7 @@ function createFlaw(moldId){
 	el('fType').style.backgroundColor = getColor(newFlaw.flaw_type);
 });
 }
+
 function kostil3(inspType){
 	newFlaw.inspection_type = inspType;
 	customWindow.show(MIFlawCreatorData);
@@ -991,6 +1012,19 @@ var selectReport = {
 		"headerText":"О Т Ч Е Т Ы"
 	},
 	"contentFunc": reports,
+	"callback":function(){
+								alert('callback call');
+						}
+}
+var makeComment = {
+	"view":	{	
+		"left":"400", 
+		"top":"150", 
+		"headerText":"Оставьте комментарий (если нужно)"
+	},
+	"contentFunc": function(){
+		
+	},
 	"callback":function(){
 								alert('callback call');
 						}
