@@ -6,7 +6,7 @@
 	getWeightsStats($_GET['period'], $_GET['dateFrom'], $_GET['dateTo']);
 
 	function getWeightsStats($period, $dateFrom, $dateTo){
-		$res = mysql_query("SELECT DAY(date) as dayw, month(date) as monthw, YEAR(date) as yearw, time(date) as timew, weight FROM `weights` WHERE `POL_id`='".$period."' and (date between '".$dateFrom."' and '".$dateTo."')");
+		$res = mysql_query("SELECT DAY(date) as dayw, month(date) as monthw, YEAR(date) as yearw, time(date) as timew, weight FROM `weights` WHERE `POL_id`='".$period."' and (date between '".$dateFrom."' and '".$dateTo."') order by date");
 		$dates = "[";
 		$weights = "[";
 		$returnal = "{";
