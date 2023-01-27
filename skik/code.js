@@ -216,6 +216,7 @@ function printCell(sec, pos){
 				if(action<(lineState[sec][pos].flaw[flaw].action * 1)) action = lineState[sec][pos].flaw[flaw].action * 1;
 				if(flawHTML=='Норма') flawHTML = '';
 				if(userType == 'OTK') authMinHeight = '2.3';
+				if(userType == 'OTK') flawHTML += '<input style="float:right" title="Закрыть брак"  type="button" value="&#10060" onclick="closeFlaw('+flaw+')">';
 				else authMinHeight = '0';
 				if(!lineState[sec][pos].flaw[flaw].corrective_action) textDecoration = 'none';
 				else {
@@ -224,15 +225,15 @@ function printCell(sec, pos){
 				flawHTML += '<div class="'+blink_style+'" title="' + SFM_actions[lineState[sec][pos].flaw[flaw].corrective_action] + '"  style="min-height:'+authMinHeight+'em;text-decoration:'+textDecoration+'"> ' +getFlawStartAgo(lineState[sec][pos].flaw[flaw]) + getCorrTimeAgo(lineState[sec][pos].flaw[flaw])+'&nbsp'+defects[lineState[sec][pos].flaw[flaw].flaw_type].title;
 				if (action > 1) flawHTML += ", " + normF(lineState[sec][pos].flaw[flaw].flaw_part, 2) + "% ";
 				flawHTML += '<input style="float:right" type="button" title="Оставить комментарий" value="&#128172" onclick="createCom('+flaw+')">';
-				if (lineState[sec][pos].flaw[flaw].flaw_author == 'SFM' && userType=='OTK')flawHTML += '<input style="float:right" type="button" value="Да, это брак" onclick="acceptFlaw('+flaw+')">';
+				if (lineState[sec][pos].flaw[flaw].flaw_author == 'SFM' && userType=='OTK')flawHTML += '<input style="float:right" type="button" title="Да, это брак" value="&#9989" onclick="acceptFlaw('+flaw+')">';
 				if (lineState[sec][pos].flaw[flaw].comment) flawHTML += '<br>' + lineState[sec][pos].flaw[flaw].comment;
-				if(userType == 'OTK') flawHTML += '<input style="float:right" title="Закрыть брак"  type="button" value="X" onclick="closeFlaw('+flaw+')">';
+				
 				
 				if(userType == 'SFM') flawHTML += '[<a href="javascript:showCorrectiveSelector(' + flaw + ', \'Устранить: ' + defects[lineState[sec][pos].flaw[flaw].flaw_type].title + '\')">Устранить</a>]';
 				flawHTML += '</div>';
 			}
 			if(action == 3) fontColor = 'white';
-			if(userType == 'OTK') flawHTML += '<div  style=""><input type="button" value="Добавить брак" onclick="createFlaw(' + lineState[sec][pos].moldRecId + ')"></div>';
+			if(userType == 'OTK') flawHTML += '<div  style=""><input type="button" value="&#10133 брак" onclick="createFlaw(' + lineState[sec][pos].moldRecId + ')"></div>';
 			else flawHTML += '<div  style=""><input type="button" value="Сообщить о браке" onclick="createFlaw(' + lineState[sec][pos].moldRecId + ')"></div>';
 			
 			styleStr = 'background-color:'+corrective_actions[action].color+';color:'+fontColor;
@@ -473,6 +474,12 @@ function kostilRough(sec, pos){
 	if(lineState['rough_molds'][sec])
 		if(lineState['rough_molds'][sec][pos]) moldRecId = lineState['rough_molds'][sec][pos].recId;
 }
+function allFormsFlaw(){
+	document.getElementsByName("allFormsFlaw")[0].click()
+	
+	checkboxes = document.getElementsByName('ch');
+	document.getElementById("fPart").value = document.getElementById("fPart").value/checkboxes.length
+	}
 function createFlaw(moldId){
 	newFlaw.moldsIdsList = moldId;
 	//customWindow.show(flawCreatorData);
@@ -486,11 +493,11 @@ function createFlaw(moldId){
 		wDiv.innerHTML += 'Корректирующее действие<br>';
 		wDiv.innerHTML += '<div id="fAction" class="usable"></div><br>';
 		wDiv.innerHTML += 'Доля брака<br>';
-		wDiv.innerHTML += '<input type="text" id="fPart"><br><br>';
+		wDiv.innerHTML += '<input type="text" id="fPart"><input type="button" value="Поделить между формами" OnClick="allFormsFlaw()"><br><br>';
 		wDiv.innerHTML += 'Значение параметра<br>';
 		wDiv.innerHTML += '<input type="text" id="fParameter"><br><br>';
 		wDiv.innerHTML += 'Комментарий<br>';
-		wDiv.innerHTML += '<input type="text" id="fComment"><br><br>';
+		wDiv.innerHTML += '<input type="text" id="fComment" value=""><br><br>';
 		wDiv.innerHTML += '<input id="newFlawBtn" type="button" value="Добавить">'; //onclick="newFlawKostil()"
 		contentDiv.appendChild(wDiv);
 		
@@ -506,9 +513,14 @@ function createFlaw(moldId){
 			}
 			newFlaw.flaw_part = validateFloatInput(el('fPart').value);
 			newFlaw.parameter_value = el('fParameter').value;
-			newFlaw.comment = '<b>'+userType+':</b>'+el('fComment').value;
+			if(el('fComment').value.length>0) {
+				newFlaw.comment = '<b>'+userType+':</b>'+el('fComment').value;
+			}else{
+				newFlaw.comment = "";
+			}
+			//alert(el('fComment').value.length);
 			//alert(userType);
-			newFlaw.userType = userType;
+			newFlaw.userType = userType; 
 			addFlaw(newFlaw);
 			modalWindow.hide();
 		}
@@ -578,17 +590,29 @@ function moldsSelector(){
 			newCheckbox.moldCellId = moldsOnLine[mold][1];
 			newCheckbox.name = 'ch';
 			if(moldsOnLine[mold][1] == newFlaw.moldsIdsList) newCheckbox.checked = true;
-			/*newCheckbox.onclick = function(){
-						return function(){
-							newFlaw.moldsIdsList = '';
-						};
-					}();*/
 			newLabel = document.createElement('LABEL');
 			newLabel.innerHTML = moldsOnLine[mold][0];
 			pairDiv.appendChild(newCheckbox);
 			pairDiv.appendChild(newLabel);
 			fMoldsDiv.appendChild(pairDiv);
 		}
+		/*Кнопка Выбрать все формы*/
+		pairDiv = document.createElement('DIV');	
+		pairDiv.style.padding = '5px';
+		pairDiv.style.display = 'inline-block';
+		newCheckbox = document.createElement('INPUT');
+		newCheckbox.type = 'button';
+		newCheckbox.value = 'Выбрать все формы';
+		newCheckbox.moldCellId = "allForms";
+		newCheckbox.onclick = function(){
+						return function(){
+							var checkboxes = document.getElementsByName('ch');
+							for(c in checkboxes) checkboxes[c].checked = true;
+						};
+					}();
+		newCheckbox.name = "allFormsFlaw";
+		pairDiv.appendChild(newCheckbox);
+		fMoldsDiv.appendChild(pairDiv);
 }
 function paramSelector(contentDiv){
 	var lstElem;

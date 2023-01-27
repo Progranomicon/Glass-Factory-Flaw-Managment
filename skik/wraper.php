@@ -94,15 +94,27 @@
 	}
 	function getW(){
 		$r = '"weights":"error"';
-		$res = mysql_query("SELECT weight FROM factory.weights ORDER BY `date` DESC LIMIT 0, 4");
+		$res = mysql_query("SELECT weight, p.minValue, p.maxValue FROM factory.weights w
+								left join factory.production_on_lines pol on w.POL_id = pol.id 
+								left join factory.format_passport_params p on pol.production_id = p.productionId and p.paramId = 58 
+								where pol.line = 1  
+								ORDER BY `date` DESC LIMIT 0, 4");
 				if($res){
-						$delim =" g. &nbsp &nbsp &nbsp";
-						$r = '"weights":"';
+						$delim =" &nbsp &nbsp &nbsp";
+						$r = '"weights":" (';
+						$minVal = 0;
+						$maxVal = 10000;
 						while($row = mysql_fetch_assoc($res)){
-							$r .= $row['weight'].$delim;
+							$minVal = intval($row['minValue']);
+							$maxVal = intval($row['maxValue']);
+							if (intval($row['weight'])<$minVal or intval($row['weight'])>$maxVal){ 
+								$r .= "<span class=blinkred-2>".$row['weight']."g.</span>".$delim;
+							}else{
+								$r .= $row['weight']."g. ".$delim;
+							}
 							//$delim = " g. &nbsp &nbsp &nbsp";
 						}
-						$r .= '"';
+						$r .= ' ('.$minVal.' - '.$maxVal.'g.)"';
 				}else echo $res;
 		echo $r;
 	}

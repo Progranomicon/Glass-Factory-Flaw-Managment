@@ -8,7 +8,7 @@
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 	<script language="javascript" type="text/javascript" src="../moment.min.js" charset="utf-8"></script>
 	<script language="javascript" type="text/javascript" src="../tools.js" charset="utf-8"></script>
-	<script language="javascript" type="text/javascript" src="../../Bottle.js" charset="utf-8"></script>
+	<script language="javascript" type="text/javascript" src="../../Bottles.js" charset="utf-8"></script>
 	<script language="javascript" type="text/javascript" src="../auth.js" charset="utf-8"></script>
 	<script language="javascript" type="text/javascript" src="../jquery.js" charset="utf-8"></script>
 	<script language="javascript" type="text/javascript" src="js.js" charset="utf-8"></script>
