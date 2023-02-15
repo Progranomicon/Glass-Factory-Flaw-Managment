@@ -7,7 +7,7 @@ function updater(){
 	el('current_line').innerHTML = currentLine;
 	if(currentProductionId!=''){
 		el('current_production').innerHTML = productionList[currentProductionId].code + '(<a href="statistic/index.php?production=' + currentProductionId + '">' + productionList[currentProductionId].shortName + '</a>)';
-		if (userType == 'OTK') el('current_production').innerHTML += ' <input type="button" value="Снять" onclick="closeProduction()">';
+		if (userType == 'OTK') el('current_production').innerHTML += '<a href=wControl/index.php?prodId='+currentProductionId+'> Задать вес </a> <input type="button" value="Снять" onclick="closeProduction()">';
 	}else{
 		if (userType == 'OTK') el('current_production').innerHTML ='<input type="button" value="Установить продукцию" onclick="customWindow.show(productionSelectorData)">';
 		else el('current_production').innerHTML = 'Нет.';
@@ -505,10 +505,12 @@ function createFlaw(moldId){
 			newFlaw.moldsIdsList = '';
 			var checkboxes = document.getElementsByName('ch');
 			var delimiter = '';
-			for(c in checkboxes){
+			newFlaw.moldsIdsList='';
+			for(var c in checkboxes){
 				if (checkboxes[c].checked) {
-					newFlaw.moldsIdsList += delimiter + checkboxes[c].moldCellId;
+					if (checkboxes[c].moldCellId!= undefined) {newFlaw.moldsIdsList += delimiter + checkboxes[c].moldCellId;
 					delimiter = ', ';
+					}
 				}
 			}
 			newFlaw.flaw_part = validateFloatInput(el('fPart').value);

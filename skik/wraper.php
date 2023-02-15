@@ -96,7 +96,7 @@
 		$r = '"weights":"error"';
 		$res = mysql_query("SELECT weight, p.minValue, p.maxValue FROM factory.weights w
 								left join factory.production_on_lines pol on w.POL_id = pol.id 
-								left join factory.format_passport_params p on pol.production_id = p.productionId and p.paramId = 58 
+								left join factory.format_passport_params p on pol.production_id = p.productionId and p.paramId = 58
 								where pol.line = 1  
 								ORDER BY `date` DESC LIMIT 0, 4");
 				if($res){
